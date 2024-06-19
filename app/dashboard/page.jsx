@@ -168,8 +168,8 @@ export default function Dashboard() {
     <Container>
       {!checked ? (
         <Box>
+          
           <Typography variant="question">Your Repositories</Typography>
-
           <Box sx={{ height: '150px' }}>
             <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>
               <Typography sx={{ textAlign: 'center', color: '#FFFFFF' }} fontSize="18px">Select a commit and click continue</Typography>

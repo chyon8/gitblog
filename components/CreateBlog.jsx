@@ -1,13 +1,13 @@
 "use client";
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Typography, Box, Container, Button, Checkbox } from '@mui/material';
+import {  useState } from 'react';
+import { Typography, Box, Button, Checkbox } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactMarkdown from 'react-markdown'
 import BASE_URL from '@/app/config';
+
 
 export default function CreateBlog({commitDetails,commitMsg}) {
   const { data: session } = useSession();
@@ -16,6 +16,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [checked, setChecked] = useState(false);
   const [response, setResponse] = useState('');
+  const [type,setType]= useState(3)
  
 
   const [loading, setLoading] = useState(false); 
@@ -30,38 +31,9 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     setChecked(true);
   };
 
-
-
-  /*
-  const handleCreate = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setResponse('');
-
-    const patches = selectedFiles.map(file => file.patch).join('\n');
-    const responseStream = await fetch('http://localhost:8000/create_blog/stream', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text: patches  }),
-    });
-
-    const reader = responseStream.body.getReader();
-    const decoder = new TextDecoder();
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value);
-      setResponse((prev) => prev + chunk);
-    }
-
-    setLoading(false);
-  };
-  */
-
-
+  const handleSelect=(event)=>{
+  setType(event.target.value)
+  }
 
   const handleCreate = async () => {
 
@@ -158,9 +130,7 @@ const formatResponse = (text) => {
   return (
 
  <Box>
-    <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }}>
-            Save
-          </Button>
+ 
     <Box sx={{ height: '150px' }}>
         <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>
           <Typography sx={{ textAlign: 'center', color: '#FFFFFF' }} fontSize="18px">Select files and click continue</Typography>
@@ -168,6 +138,15 @@ const formatResponse = (text) => {
             <Typography sx={{ color: selectedFiles.length > 0 || loading ? '#0A0A0A' : '#FFFFFF' }}>Create a blog</Typography>
           </Button>
         </Box>
+
+        <Box>
+        <select onChange={handleSelect} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} value={1} label="Type">
+    <option value={1}>Ten</option>
+    <option value={2}>Twenty</option>
+    <option value={3}>Thirty</option>
+    </select>
+        </Box>
+        
       </Box>
       <Box sx={{mb:'24px',bgcolor: response.content ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
       {response.content && !loading && (

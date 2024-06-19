@@ -34,7 +34,7 @@ function MyProduct() {
 
   return (
     <Box sx={{ mb: '30px', mt: '80px' }}>
-      <Typography sx={{ color: '#F0F0F0' }} fontWeight='600' fontSize='34px'>Blogs</Typography>
+      <Typography sx={{ color: '#F0F0F0' }} fontWeight='600' fontSize='34px'>Posts</Typography>
 
       <Box
         sx={{
@@ -62,7 +62,7 @@ function MyProduct() {
           ))
         ) : (
             <Box display='grid' sx={{gap:3,mt:'14px'}}>
-                <Typography sx={{color:'#FFFFFF'}} fontSize="18px">No blog yet </Typography>
+                <Typography sx={{color:'#FFFFFF'}} fontSize="18px">No Posts yet </Typography>
                 <a style={{textDecoration:'none'}} href={'/dashboard'}>
                 <Button sx={{ color: '#0A0A0A', backgroundColor: '#00FF66', }}><Typography>Write a blog</Typography></Button></a>
                 
