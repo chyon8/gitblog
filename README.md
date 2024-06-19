@@ -1,5 +1,1 @@
-## soundvista project
-
-
-# sellup
 # gitblog
