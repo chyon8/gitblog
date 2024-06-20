@@ -33,7 +33,6 @@ export default function Organization({orgs,setReposOrgParent,setOrgNameParent}) 
     }
   };
 
-console.log(orgs)
 
 
   return (

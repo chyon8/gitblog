@@ -13,13 +13,16 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const { data: session } = useSession();
 
 
+
+
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [checked, setChecked] = useState(false);
   const [response, setResponse] = useState('');
   const [postType,setPostType]= useState("tutorial")
   const [lang,setLang]= useState("english")
+  const [saved,setSaved]= useState(false)
 
- 
+
 
   const [loading, setLoading] = useState(false); 
 
@@ -41,6 +44,20 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     setLang(event.target.value)
     }
 
+  const takeCredits =async () =>{
+    try {
+      const res = await fetch(`${BASE_URL}/api/credits`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+  
+  } catch (error) {
+    console.error('Error:', error);
+
+  }
+  }
 
   const handleCreate = async () => {
 
@@ -49,6 +66,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     setLoading(true);
 
     try {
+      if(session.user.credits > 0){
         const res = await fetch('http://localhost:8000/create_blog', {
         method: 'POST',
         headers: {
@@ -56,9 +74,16 @@ export default function CreateBlog({commitDetails,commitMsg}) {
         },
         body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType })
       });
-
       const data = await res.json();
       setResponse(data.response);
+      takeCredits()
+
+    }
+    else{
+      alert("no credits remaining")
+    }
+
+   
      
     
     } catch (error) {
@@ -67,6 +92,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     } finally {
       // Set loading to false once the request is complete
       setLoading(false);
+      
     }
   }; 
 
@@ -109,8 +135,6 @@ const formatResponse = (text) => {
   
   const handleSave = () =>{
 
-
-
     fetch(`${BASE_URL}/api/save`, {
       method: 'POST',
       headers: {
@@ -120,13 +144,21 @@ const formatResponse = (text) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setSaved(true)
+          alert("saved")
+          console.log("saved")
+          console.log(saved)
         if (data.errors) {
-          setError(data?.errors[0]?.msg);
+          
+          
         } else {
           setError(data?.msg || 'Success');
-          window.location.reload();
+       
+         
         
         }
+    
+     
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -134,9 +166,11 @@ const formatResponse = (text) => {
   }
  
 
+
   return (
 
  <Box>
+
  
     <Box sx={{ height: '150px' }}>
         <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>
@@ -146,21 +180,27 @@ const formatResponse = (text) => {
           </Button>
         </Box>
 
-        <Box>
-        <select onChange={handleSelectType} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} value={1} label="Type">
+        <Box sx={{mt:'24px',display:'flex',gap:3}}>
+          <Box sx={{display:'grid',gap:2}}>
+          <Typography variant='answer'>Style</Typography>
+        <select onChange={handleSelectType} value={postType} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
     <option value="tutorial">Tutorial</option>
     <option value="developemt_diary">Development diary</option>
     <option value="retrospective">Retrospective</option>
     <option value="review_and_critique">Review and critique</option>
     <option value="free_style">Free Style</option>
     </select>
+    </Box>
 
-    <select onChange={handleSelectLang} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} value={1} label="Type">
+    <Box sx={{display:'grid',gap:2}}>
+    <Typography variant='answer'>Language</Typography>
+    <select onChange={handleSelectLang} value={lang} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
     <option value="english">English</option>
     <option value="korean">Korean</option>
     <option value="japanese">Japanese</option>
 
     </select>
+   </Box>
         </Box>
 
       </Box>
@@ -172,7 +212,7 @@ const formatResponse = (text) => {
         )}
       {loading ? <Typography variant='answer'>Writing...</Typography> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response?.content)}</Typography>}
       {response?.content && !loading && (
-          <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }}>
+          <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }} disabled={saved}>
             Save
           </Button>
         )}

@@ -52,6 +52,8 @@ const authOptions = {
       const userData = await User.findOne({ email: session.user.email });
       if (userData) {
         session.user.id = userData._id;
+        session.user.subscribed = userData.subscribed;
+        session.user.credits = userData.credits;
       }
       if (token) {
         session.accessToken = token.accessToken;

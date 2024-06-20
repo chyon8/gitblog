@@ -24,6 +24,10 @@ const userSchema = new Schema(
       default : false,
   
     },
+    credits:{
+      type:Number,
+      default:20
+    },
     favorites: {
       type: Map,
       of: Boolean,

@@ -14,6 +14,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Organization from '@/components/Organization';
+import { redirect } from 'next/navigation';
 
 export default function DashboardOrg() {
   const { data: session } = useSession();
@@ -28,6 +29,10 @@ export default function DashboardOrg() {
   const [totalPages,setTotalPages]=useState(1)
   const [orgs, setOrgs] = useState([]);
   const [orgName, setOrgName] = useState(null);
+
+if(!session?.user.subscribed){
+redirect('/dashboard')
+}
 
   useEffect(() => {
     if (session?.accessToken) {
