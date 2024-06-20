@@ -42,14 +42,23 @@ export default function DashboardOrg() {
         params: {
           visibility: 'all',
           sort: 'updated',
+   
         },
       }).then((res) => {
         setOrgs(res.data);
+        const linkHeader = res.headers.link;
+        if (linkHeader) {
+          const totalPages = getTotalPages(linkHeader);
+          setTotalPagesRepo(totalPages);
+         
+        } else {
+          setTotalPagesRepo(1);
+        }
       }).catch((err) => {
         console.error("Error fetching repositories:", err);
       });
     }
-  }, [session]);
+  }, [ session]);
 
 
   if(!session?.user.subscribed){
@@ -82,15 +91,7 @@ export default function DashboardOrg() {
         setSelectedCommit(null);
        
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        const linkHeader = res.headers.link;
-        if (linkHeader) {
-          const totalPages = getTotalPages(linkHeader);
-          setTotalPages(totalPages);
-         
-        } else {
-          setTotalPages(1);
-        }
-
+     
       }).catch((err) => {
         console.error("Error fetching commits:", err);
       });
@@ -123,6 +124,10 @@ export default function DashboardOrg() {
     setCurrentPage(newPage);
  
 };
+
+
+
+
 
   const fetchCommitDetails = (repoName, sha) => {
     if (session?.accessToken) {
@@ -227,6 +232,7 @@ export default function DashboardOrg() {
             ))}
                      
           </Box>
+
 
           {selectedRepo && (
             <>

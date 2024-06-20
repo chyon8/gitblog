@@ -11,6 +11,9 @@ export default function Organization({orgs,setReposOrgParent,setOrgNameParent}) 
   const [reposOrg,setReposOrg] =useState([])
 
 
+
+
+
   const fetchReposOrg = (org,orgName) => {
 
 
@@ -19,13 +22,19 @@ export default function Organization({orgs,setReposOrgParent,setOrgNameParent}) 
         headers: {
           Authorization: `token ${session.accessToken}`
         },
+        params: {
+          sort: 'updated',
+     
+   
+        },
+     
       
       }).then((res) => {
         setReposOrg(res.data);
         setReposOrgParent(res.data);
         setOrgNameParent(orgName);
+        
     
-       
     
       }).catch((err) => {
         console.error("Error fetching commits:", err);

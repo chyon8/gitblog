@@ -23,12 +23,15 @@ export default function Dashboard() {
   const [commitDetails, setCommitDetails] = useState({});
   const [openCommits, setOpenCommits] = useState({});
   const [selectedCommit, setSelectedCommit] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [checked, setChecked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageRepo, setCurrentPageRepo] = useState(1);
   const [totalPages,setTotalPages]=useState(1)
+  const [totalPagesRepo,setTotalPagesRepo]=useState(1)
   const [orgs, setOrgs] = useState([]);
 
+
+  
   useEffect(() => {
     if (session?.accessToken) {
       axios.get('https://api.github.com/user/repos', {
@@ -38,14 +41,24 @@ export default function Dashboard() {
         params: {
           visibility: 'all',
           sort: 'updated',
+          per_page: 10,
+          page: currentPageRepo
         },
       }).then((res) => {
         setRepos(res.data);
+        const linkHeader = res.headers.link;
+        if (linkHeader) {
+          const totalPages = getTotalPages(linkHeader);
+          setTotalPagesRepo(totalPages);
+         
+        } else {
+          setTotalPagesRepo(1);
+        }
       }).catch((err) => {
         console.error("Error fetching repositories:", err);
       });
     }
-  }, [session]);
+  }, [currentPageRepo, session]);
 
 
   
@@ -116,6 +129,11 @@ export default function Dashboard() {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
  
+};
+
+const handlePageChangeRepo = (newPage) => {
+  setCurrentPageRepo(newPage);
+
 };
 
   const fetchCommitDetails = (repoName, sha) => {
@@ -205,10 +223,14 @@ export default function Dashboard() {
                <Link target="_blank" style={{textDecoration:'none'}} href={repo.html_url}> <Typography sx={{fontSize:'12px', color:'#CCCCCC' ,cursor: 'pointer',whiteSpace:'nowrap',overflow:'hidden' }}>Go to github</Typography></Link>
                 </Box>
                 </Box>
+                
               </Box>
+              
             ))}
+                    
                      
           </Box>
+          <PaginationRounded onPageChange={handlePageChangeRepo} totalPages={totalPagesRepo}/>
 
           {selectedRepo && (
             <>
