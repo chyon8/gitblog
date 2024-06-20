@@ -8,6 +8,7 @@ import theme from '../app/theme'
 import Footer from '../components/Footer'
 import GoogleAnalytics from "@/lib/googleAnalytics";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -39,10 +40,12 @@ export default function RootLayout({ children }) {
             <div className="flex-grow bg-page text-default-text">
        <AppRouterCacheProvider>
        <ThemeProvider theme={theme}>
-   
+
        <Navbar />
+
  
        {children}
+
        <Footer/>
        </ThemeProvider>
         </AppRouterCacheProvider>  

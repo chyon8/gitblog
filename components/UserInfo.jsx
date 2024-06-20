@@ -5,7 +5,9 @@ import { Typography,Box,Button } from "@mui/material";
 import { useSession,signOut } from "next-auth/react";
 import Link from "next/link";
 
+
 export default function UserInfo() {
+
   const { status, data: session } = useSession();
 
   if (status === "authenticated") {
@@ -43,13 +45,16 @@ export default function UserInfo() {
   </Button>
   </Link>
   </Box>
+  
 ):
 (<Box sx={{mt:'30px',display:'grid',gap:3}}><Typography variant="answer">You are on the Free Trial Plan</Typography>
-<Link  href={'/'}>
+<Link  href={`/payment/${session.user.id}`}>
 <Button>
 <Typography variant="answer">See what Premium Plan offers</Typography>
 </Button>
 </Link>
+
+
 </Box>)
 }
 

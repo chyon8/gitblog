@@ -13,6 +13,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PayPalButton from '@/components/PayPalButton';
 
 
 export default function Dashboard() {
@@ -172,6 +173,8 @@ const handlePageChangeRepo = (newPage) => {
 
   return (
     <Container>
+   
+
       {!checked ? (
         <Box>
 <Link href={'dashboard/orgs'}>
