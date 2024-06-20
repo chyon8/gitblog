@@ -16,7 +16,9 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [checked, setChecked] = useState(false);
   const [response, setResponse] = useState('');
-  const [type,setType]= useState(3)
+  const [postType,setPostType]= useState("tutorial")
+  const [lang,setLang]= useState("english")
+
  
 
   const [loading, setLoading] = useState(false); 
@@ -31,9 +33,14 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     setChecked(true);
   };
 
-  const handleSelect=(event)=>{
-  setType(event.target.value)
+  const handleSelectType=(event)=>{
+  setPostType(event.target.value)
   }
+
+  const handleSelectLang=(event)=>{
+    setLang(event.target.value)
+    }
+
 
   const handleCreate = async () => {
 
@@ -47,7 +54,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ text: patches,commitMsg:commitMsg })
+        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType })
       });
 
       const data = await res.json();
@@ -92,7 +99,7 @@ const formatResponse = (text) => {
 
 
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(response.content).then(() => {
+    navigator.clipboard.writeText(response?.content).then(() => {
       alert('Copied to clipboard!');
     }).catch(err => {
       console.error('Error copying to clipboard:', err);
@@ -109,7 +116,7 @@ const formatResponse = (text) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({post:response.content}),
+      body: JSON.stringify({post:response?.content}),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -140,22 +147,31 @@ const formatResponse = (text) => {
         </Box>
 
         <Box>
-        <select onChange={handleSelect} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} value={1} label="Type">
-    <option value={1}>Ten</option>
-    <option value={2}>Twenty</option>
-    <option value={3}>Thirty</option>
+        <select onChange={handleSelectType} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} value={1} label="Type">
+    <option value="tutorial">Tutorial</option>
+    <option value="developemt_diary">Development diary</option>
+    <option value="retrospective">Retrospective</option>
+    <option value="review_and_critique">Review and critique</option>
+    <option value="free_style">Free Style</option>
+    </select>
+
+    <select onChange={handleSelectLang} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} value={1} label="Type">
+    <option value="english">English</option>
+    <option value="korean">Korean</option>
+    <option value="japanese">Japanese</option>
+
     </select>
         </Box>
-        
+
       </Box>
-      <Box sx={{mb:'24px',bgcolor: response.content ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
-      {response.content && !loading && (
+      <Box sx={{mb:'24px',bgcolor: response?.content ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
+      {response?.content && !loading && (
           <Button onClick={handleCopyToClipboard} sx={{ mt: 2, color: '#FFFFFF', backgroundColor: '#00FF66' }}>
             Copy to Clipboard
           </Button>
         )}
-      {loading ? <Typography variant='answer'>Writing...</Typography> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response.content)}</Typography>}
-      {response.content && !loading && (
+      {loading ? <Typography variant='answer'>Writing...</Typography> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response?.content)}</Typography>}
+      {response?.content && !loading && (
           <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }}>
             Save
           </Button>

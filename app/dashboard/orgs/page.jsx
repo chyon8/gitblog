@@ -15,7 +15,7 @@ import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Organization from '@/components/Organization';
 
-export default function Dashboard() {
+export default function DashboardOrg() {
   const { data: session } = useSession();
   const [repos, setRepos] = useState([]);
   const [commits, setCommits] = useState([]);
@@ -23,15 +23,15 @@ export default function Dashboard() {
   const [commitDetails, setCommitDetails] = useState({});
   const [openCommits, setOpenCommits] = useState({});
   const [selectedCommit, setSelectedCommit] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [checked, setChecked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages,setTotalPages]=useState(1)
   const [orgs, setOrgs] = useState([]);
+  const [orgName, setOrgName] = useState(null);
 
   useEffect(() => {
     if (session?.accessToken) {
-      axios.get('https://api.github.com/user/repos', {
+      axios.get('https://api.github.com/user/orgs', {
         headers: {
           Authorization: `token ${session.accessToken}`
         },
@@ -40,7 +40,7 @@ export default function Dashboard() {
           sort: 'updated',
         },
       }).then((res) => {
-        setRepos(res.data);
+        setOrgs(res.data);
       }).catch((err) => {
         console.error("Error fetching repositories:", err);
       });
@@ -62,7 +62,7 @@ export default function Dashboard() {
   const fetchCommits = (repoName) => {
 
     if (session?.accessToken) {
-      axios.get(`https://api.github.com/repos/${session.user.name}/${repoName}/commits`, {
+      axios.get(`https://api.github.com/repos/${orgName}/${repoName}/commits`, {
         headers: {
           Authorization: `token ${session.accessToken}`
         },
@@ -120,7 +120,7 @@ export default function Dashboard() {
 
   const fetchCommitDetails = (repoName, sha) => {
     if (session?.accessToken) {
-      axios.get(`https://api.github.com/repos/${session.user.name}/${repoName}/commits/${sha}`, {
+      axios.get(`https://api.github.com/repos/${orgName}/${repoName}/commits/${sha}`, {
         headers: {
           Authorization: `token ${session.accessToken}`
         }
@@ -156,11 +156,12 @@ export default function Dashboard() {
     <Container>
       {!checked ? (
         <Box>
-<Link href={'dashboard/orgs'}>
-<Typography sx={{mb:'24px'}} variant='answer'>Get My Organizations</Typography>
-</Link>
+
+<Typography variant="question">Your Organizations</Typography>
+
+   <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName}/>
           
-          <Typography variant="question">Your Repositories</Typography>
+        
           <Box sx={{ height: '150px' }}>
             <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>
               <Typography sx={{ textAlign: 'center', color: '#FFFFFF' }} fontSize="18px">Select a commit and click continue</Typography>
@@ -202,7 +203,7 @@ export default function Dashboard() {
                
                 
                 <Typography fontSize="11px" fontWeight='600' sx={{ color: 'rgb(168, 168, 168)',textAlign: 'left'}} ><TimeSincePost createdAt={repo.updated_at} /> </Typography>
-               <Link target="_blank" style={{textDecoration:'none'}} href={repo.html_url}> <Typography sx={{fontSize:'12px', color:'#CCCCCC' ,cursor: 'pointer',whiteSpace:'nowrap',overflow:'hidden' }}>Go to github</Typography></Link>
+               <Link target="_blank" style={{textDecoration:'none'}} href={""}> <Typography sx={{fontSize:'12px', color:'#CCCCCC' ,cursor: 'pointer',whiteSpace:'nowrap',overflow:'hidden' }}>Go to github</Typography></Link>
                 </Box>
                 </Box>
               </Box>
