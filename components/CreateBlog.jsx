@@ -7,6 +7,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactMarkdown from 'react-markdown'
 import BASE_URL from '@/app/config';
+import LottieAnimation from './LottieAnimation';
 
 
 export default function CreateBlog({commitDetails,commitMsg}) {
@@ -210,7 +211,7 @@ const formatResponse = (text) => {
             Copy to Clipboard
           </Button>
         )}
-      {loading ? <Typography variant='answer'>Writing...</Typography> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response?.content)}</Typography>}
+      {loading ? <LottieAnimation/> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response?.content)}</Typography>}
       {response?.content && !loading && (
           <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }} disabled={saved}>
             Save

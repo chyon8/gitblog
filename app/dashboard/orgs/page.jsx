@@ -16,6 +16,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Organization from '@/components/Organization';
 import { redirect } from 'next/navigation';
 
+
 export default function DashboardOrg() {
   const { data: session } = useSession();
   const [repos, setRepos] = useState([]);
