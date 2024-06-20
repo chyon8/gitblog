@@ -4,7 +4,7 @@ import UserInfo from "@/components/UserInfo";
 
 import { useSession  } from "next-auth/react";
 import { Container } from "@mui/material";
-import MyProduct from "@/components/MyProduct";
+import MyPost from "@/components/MyPost";
 import { redirect } from "next/navigation";
 
 
@@ -39,7 +39,7 @@ const Profile = () => {
 
 
 
-<MyProduct/>
+<MyPost/>
 
 
      </Container>

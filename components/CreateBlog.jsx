@@ -204,9 +204,9 @@ const formatResponse = (text) => {
         </Box>
 
       </Box>
-      <Box sx={{mb:'24px',bgcolor: response?.content ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
+      <Box sx={{mt:'50px' ,mb:'24px',bgcolor: response?.content ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
       {response?.content && !loading && (
-          <Button onClick={handleCopyToClipboard} sx={{ mt: 2, color: '#FFFFFF', backgroundColor: '#00FF66' }}>
+          <Button size='small' onClick={handleCopyToClipboard} sx={{ mt: 2, color: '#252525', backgroundColor: '#00FF66' }}>
             Copy to Clipboard
           </Button>
         )}

@@ -1,4 +1,4 @@
-import Product from "@/models/Product";
+import Blog from "@/models/Blog";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import User from "@/models/User";
@@ -20,10 +20,10 @@ export async function GET(req) {
       query.user = userId;
     }
 
-    const totalCount = await Product.countDocuments(query);
+    const totalCount = await Blog.countDocuments(query);
     const totalPages = Math.ceil(totalCount / limit);
 
-    const product = await Product.find(query)
+    const post = await Blog.find(query)
       .sort({ createdAt: 'desc' })
       .populate('user')
       .skip((page - 1) * limit)
@@ -31,7 +31,7 @@ export async function GET(req) {
 
     return NextResponse.json(
       {
-        product,
+        post,
         page,
         totalPages,
         totalCount,

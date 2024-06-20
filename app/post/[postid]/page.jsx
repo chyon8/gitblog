@@ -1,8 +1,8 @@
 "use client"
 
 import {Container } from '@mui/material';
-import ProductDetail from '@/components/ProductDetail';
 import { useSession } from 'next-auth/react';
+import PostDetail from '@/components/PostDetail';
 
 const ProductPage = () => {
 
@@ -13,10 +13,10 @@ const userId = session?.user?.id
   return (
     <Container>
    
-   {/*<Box sx={{display:{xs:'grid',sm:'grid',md:'grid',lg:'flex'} }}>  </Box>*/}
 
 
-   <ProductDetail userId={userId}/>
+
+   <PostDetail userId={userId}/>
 
   
  

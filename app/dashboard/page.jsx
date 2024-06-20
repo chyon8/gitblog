@@ -13,7 +13,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Organization from '@/components/Organization';
+
 
 export default function Dashboard() {
   const { data: session } = useSession();
