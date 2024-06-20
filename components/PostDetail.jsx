@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import BASE_URL from '@/app/config';
 import { Typography, Box } from '@mui/material';
-
+import ReactMarkdown from 'react-markdown'
 
 const PostDetail = (userId) => {
   const router = useParams();
@@ -39,6 +39,10 @@ const PostDetail = (userId) => {
     return <Typography variant='answer' fontweight="600">Post not found</Typography>;
   }
 
+  const formatResponse = (text) => {
+    return <ReactMarkdown>{text}</ReactMarkdown>;
+  };
+
   return (
 
     
@@ -46,9 +50,9 @@ const PostDetail = (userId) => {
 
 
 
-        <Box className="productDetail" sx={{ display: { xs: 'grid', sm: 'grid', md: 'grid', lg: 'flex' }, border: '1px solid #222222', borderRadius: '20px', padding: { xs: '0px', sm: '25px', md: '25px', lg: '25px' } }}>
+        <Box className="productDetail" sx={{bgcolor:'#252525', display: { xs: 'grid', sm: 'grid', md: 'grid', lg: 'flex' }, border: '1px solid #222222', borderRadius: '20px', padding: { xs: '0px', sm: '25px', md: '25px', lg: '25px' } }}>
 
-<Typography variant='answer'>{post.post}</Typography>
+<Typography variant='answer'>{formatResponse(post.post)}</Typography>
           </Box>
 
 

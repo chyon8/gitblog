@@ -30,9 +30,7 @@ export default function DashboardOrg() {
   const [orgs, setOrgs] = useState([]);
   const [orgName, setOrgName] = useState(null);
 
-if(!session?.user.subscribed){
-redirect('/dashboard')
-}
+
 
   useEffect(() => {
     if (session?.accessToken) {
@@ -53,7 +51,9 @@ redirect('/dashboard')
   }, [session]);
 
 
-  
+  if(!session?.user.subscribed){
+    redirect('/dashboard')
+    }
 
   useEffect(() => {
     if (selectedRepo) {
@@ -162,10 +162,21 @@ redirect('/dashboard')
       {!checked ? (
         <Box>
 
+
+
 <Typography variant="question">Your Organizations</Typography>
 
-   <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName}/>
-          
+
+
+{orgs ? ( <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName}/>):
+(   
+  <Box sx={{mt:'30px' ,display:'grid',gap:3}}>
+  <Typography variant="answer">Not seeing your organizations?</Typography>
+  <Typography fontSize='16px' variant="answer"> Visit <a target='_blank' href='https://github.com/settings/installations'>here</a> and go to Authorized Oauth Apps to grant permission to the desired organizations</Typography>
+    </Box> 
+)}
+
+      
         
           <Box sx={{ height: '150px' }}>
             <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>

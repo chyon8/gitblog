@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Typography,Box,Button } from "@mui/material";
 import { useSession,signOut } from "next-auth/react";
+import Link from "next/link";
 
 export default function UserInfo() {
   const { status, data: session } = useSession();
@@ -34,6 +35,23 @@ export default function UserInfo() {
         </Box>
 
 
+{session?.user.subscribed ? (
+  <Box sx={{mt:'30px',display:'grid',gap:3}}><Typography variant="answer">You are on the Premium Plan</Typography>
+  <Link  href={'/'}>
+  <Button>
+  <Typography variant="answer">Cancel Subscription</Typography>
+  </Button>
+  </Link>
+  </Box>
+):
+(<Box sx={{mt:'30px',display:'grid',gap:3}}><Typography variant="answer">You are on the Free Trial Plan</Typography>
+<Link  href={'/'}>
+<Button>
+<Typography variant="answer">See what Premium Plan offers</Typography>
+</Button>
+</Link>
+</Box>)
+}
 
   
 
