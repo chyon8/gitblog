@@ -1,6 +1,6 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-const PayPalButton = () => {
+const PayPalButton = ({userId}) => {
   return (
     <PayPalButtons
     style={{ shape: 'pill',
@@ -9,7 +9,8 @@ const PayPalButton = () => {
         label: 'subscribe'}}
       createSubscription={(data, actions) => {
         return actions.subscription.create({
-          'plan_id': "P-0T356932BF342970MMZ2BRSI"
+          'plan_id': "P-7D6240721G4177010MZ2OXJQ",
+          "custom_id": userId
         });
       }}
       onApprove={(data, actions) => {

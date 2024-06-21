@@ -24,6 +24,12 @@ const userSchema = new Schema(
       default : false,
   
     },
+    subscriptionId:{
+      type:String
+    },
+    nextBilling:{
+  type:Date
+    },
     credits:{
       type:Number,
       default:20

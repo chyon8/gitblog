@@ -1,39 +1,48 @@
-import User from "@/models/User";import { NextResponse } from "next/server";
-
-
+import User from "@/models/User"
+import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
 
   try {
-    //const session = await getServerSession();
-  
-    //const email = session.user.email
+
 
     const body = await req.json();
-    const { event_type, resource } = body;
+    const { event_type,resource, billing_info } = body;
+    
+
+
 
     switch (event_type) {
       case 'BILLING.SUBSCRIPTION.ACTIVATED':
         console.log('Subscription activated');
-        await handleSubActivated(userId);
+        //await handleSubActivated(body.custom_id);
         break;
 
       case 'BILLING.SUBSCRIPTION.CANCELLED':
         console.log('Subscription cancelled');
-        await handleCancel(userId);
+        //console.log(body)
+        await handleCancel();
         break;
 
       case 'PAYMENT.SALE.COMPLETED':
         console.log('Payment completed');
-        // Handle payment completion logic here if needed
+        await handleSubActivated(resource.custom,resource.billing_agreement_id, billing_info.next_billing_time);
+
         break;
+
+        case 'BILLING.SUBSCRIPTION.CREATED':
+          console.log("created");
+          
+  
+          break;
 
       case 'PAYMENT.SALE.DENIED':
       case 'BILLING.SUBSCRIPTION.SUSPENDED':
         console.log('Payment denied or subscription suspended');
-        await handleCancel(userId);
+        await handleCancel();
         break;
 
       default:
@@ -47,17 +56,24 @@ export async function POST(req) {
   }
 }
 
-async function handleSubActivated(userId) {
+async function handleSubActivated(userId,subId,nextBill) {
   try {
-    const user = await User.findOne({ userId });
+   
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+    const user = await User.findOne({ _id:userObjectId });
 
     if (user) {
-      user.subscribed = true; // Assuming 'subscribed' is a boolean field
+      user.subscribed = true;
+      user.subscriptionId= subId
+      user.nextBilling=nextBill
       await user.save();
       console.log(`subscription activated`);
     } else {
       console.log('User not found for subscription activation');
     }
+
+
+  
   } catch (error) {
     console.log('Error handling subscription activation:', error);
     throw error; // Rethrow the error to be caught in the main error handler
