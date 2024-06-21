@@ -30,6 +30,9 @@ const userSchema = new Schema(
     nextBilling:{
   type:Date
     },
+    startTime:{
+      type:Date
+    },
     credits:{
       type:Number,
       default:20

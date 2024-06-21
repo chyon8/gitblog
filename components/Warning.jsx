@@ -2,7 +2,7 @@ import { Box, Modal, Typography, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
-function Warning({open,setOpen,handleDelete,}) 
+function Warning({open,setOpen,handleCancel,}) 
 {
   const handleClose = () => setOpen(true);
 
@@ -39,12 +39,12 @@ function Warning({open,setOpen,handleDelete,})
             <WarningAmberIcon sx={{color:'#FFFFFF'}} />
           </Box>
           <Typography sx={{ mt: '16px', mb: '24px', color:'#FFFFFF' }} textAlign="center">
-            삭제하시겠습니까?
+            Do you wanna cancel the subscription?
           </Typography>
         </Box>
         <Box sx={{ pl: '8px', pr: '8px', pb: '16px' }}>
           <Button
-            onClick={() => handleDelete()}
+            onClick={() => handleCancel()}
             fullWidth
             sx={{
               height: '30px',
@@ -52,7 +52,7 @@ function Warning({open,setOpen,handleDelete,})
             backgroundColor: '#00FF66',
             }}
           >
-            <Typography>삭제</Typography>
+            <Typography>Cancel</Typography>
           </Button>
         </Box>
       </Box>

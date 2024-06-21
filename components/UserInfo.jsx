@@ -7,19 +7,24 @@ import Link from "next/link";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PayPalButton from "@/components/PayPalButton";
 import BASE_URL from "@/app/config";
+import Warning from "./Warning";
+import { useState } from "react";
 
 export default function UserInfo() {
 
   const { status, data: session } = useSession();
+  const [open,setOpen]=useState(false)
 
   const initialOptions = {
     "client-id": "Acm6azZmwAjeR8KI4Cb-6pKVS-EScAQHGFYsIQd8-GqyZIQu7TblKWQS95fh_QtrvGXLNw6i7CFMlsM4",
     "vault": true 
   };
 
+const openModal = ()=>{
+  setOpen(true)
+}
 
-
-  const handleCancel = async()=>{
+  const cancelSub = async()=>{
 
 try{
     const response = await fetch(`${BASE_URL}/api/cancel-sub`, {
@@ -40,7 +45,8 @@ try{
 
     const data = await response.json();
     console.log('Subscription cancelled successfully:', data);
-    // Optionally, handle further actions after cancellation
+   
+window.location.reload()
 
   } catch (error) {
     console.error('Error cancelling subscription:', error.message);
@@ -81,9 +87,11 @@ try{
 {session?.user.subscribed ? (
   <Box sx={{mt:'30px',display:'grid',gap:3}}><Typography variant="answer">You are on the Premium Plan</Typography>
 
-  <Button onClick={handleCancel}>
+  <Button onClick={openModal}>
   <Typography variant="answer">Cancel Subscription</Typography>
   </Button>
+
+  <Warning open={open} setOpen={setOpen} handleCancel={() => cancelSub()} />
 
   </Box>
   
