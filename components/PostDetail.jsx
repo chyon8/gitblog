@@ -57,7 +57,7 @@ const PostDetail = (userId) => {
     <Box sx={{ display: 'grid' }}>
 
 
-        <Box className="productDetail" sx={{bgcolor:'#252525', border: '1px solid #222222', borderRadius: '20px', padding: { xs: '0px', sm: '25px', md: '25px', lg: '25px' } }}>
+        <Box className="productDetail" sx={{overflow:'scroll', bgcolor:'#252525', border: '1px solid #222222', borderRadius: '20px', padding: { xs: '0px', sm: '25px', md: '25px', lg: '25px' } }}>
        
         <Button onClick={handleCopyToClipboard} size='small' sx={{ mt: 2, color: '#252525', backgroundColor: '#00FF66' }}>
             Copy to Clipboard

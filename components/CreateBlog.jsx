@@ -1,13 +1,14 @@
 "use client";
 
 import { useSession } from 'next-auth/react';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Typography, Box, Button, Checkbox } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactMarkdown from 'react-markdown'
 import BASE_URL from '@/app/config';
 import LottieAnimation from './LottieAnimation';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 
 export default function CreateBlog({commitDetails,commitMsg}) {
@@ -22,10 +23,16 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const [postType,setPostType]= useState("tutorial")
   const [lang,setLang]= useState("english")
   const [saved,setSaved]= useState(false)
-
-
-
   const [loading, setLoading] = useState(false); 
+  const [eventSource, setEventSource] = useState(null);
+
+  useEffect(() => {
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, [eventSource]);
 
 
   if (!session) {
@@ -59,7 +66,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
 
   }
   }
-
+/*
   const handleCreate = async () => {
 
     const patches = selectedFiles.map(file => file.patch).join('\n');
@@ -84,9 +91,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
       alert("no credits remaining")
     }
 
-   
-     
-    
+
     } catch (error) {
       console.error('Error:', error);
       setResponse('An error occurred while generating the blog.');
@@ -96,18 +101,74 @@ export default function CreateBlog({commitDetails,commitMsg}) {
       
     }
   }; 
+*/
+
+
+const handleCreate = async () => {
+  const patches = selectedFiles.map(file => file.patch).join('\n');
+  setResponse('')
+  setLoading(true);
+
+  try {
+      if(session.user.credits > 0) {
+          const res = await fetch('http://localhost:8000/start_blog', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ text: patches, commitMsg: commitMsg, lang: lang, postType: postType })
+          });
+          const data = await res.json();
+          const taskId = data.task_id;
+
+          const eventSource = new EventSource(`http://localhost:8000/stream_blog/${taskId}`);
+
+          eventSource.onmessage = (event) => {
+           
+              const newMessage = event.data;
+              setLoading(false)
+              setResponse((prevResponse) => prevResponse + newMessage);
+          };
+     
+          eventSource.onerror = (error) => {
+              console.error('Error:', error);
+              eventSource.close()
+              setResponse(prevResponse => prevResponse + ' An error occurred while generating the blog. Click create again to keep generating');
+              setLoading(false);
+            
+              
+          };
+       
+        
+          eventSource.onclose = () => {
+            console.log("closed")
+          
+            takeCredits(); // Run takeCredits if the blog generation process completes successfully
+          };
+
+      } else {
+          alert("No credits remaining");
+          setLoading(false);
+      }
+  } catch (error) {
+      console.error('Error:', error);
+      setResponse('An error occurred while generating the blog.');
+      setLoading(false);
+  }
+};
 
 
 
 
 
-/*  
+/*
 const formatResponse = (text) => {
     return text?.split('\n').map((line, index) => (
       <Typography sx={{color:'#DDDDDD',fontSize:'14px', letterSpacing: '0.04rem', lineHeight: '1.2rem'}} key={index} style={{ whiteSpace: 'pre-wrap' }}>{line}</Typography>
     ));
   };
   */
+
 
   const formatResponse = (text) => {
     return <ReactMarkdown>{text}</ReactMarkdown>;
@@ -126,7 +187,7 @@ const formatResponse = (text) => {
 
 
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(response?.content).then(() => {
+    navigator.clipboard.writeText(response).then(() => {
       alert('Copied to clipboard!');
     }).catch(err => {
       console.error('Error copying to clipboard:', err);
@@ -141,7 +202,7 @@ const formatResponse = (text) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({post:response?.content}),
+      body: JSON.stringify({post:response}),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -205,14 +266,14 @@ const formatResponse = (text) => {
         </Box>
 
       </Box>
-      <Box sx={{mt:'50px' ,mb:'24px',bgcolor: response?.content ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
-      {response?.content && !loading && (
+      <Box sx={{mt:'50px' ,mb:'24px',bgcolor: response ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   
+      {response && !loading && (
           <Button size='small' onClick={handleCopyToClipboard} sx={{ mt: 2, color: '#252525', backgroundColor: '#00FF66' }}>
             Copy to Clipboard
           </Button>
         )}
-      {loading ? <LottieAnimation/> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response?.content)}</Typography>}
-      {response?.content && !loading && (
+      {loading ? <LottieAnimation/> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response)}</Typography>}
+      {response && !loading && (
           <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }} disabled={saved}>
             Save
           </Button>

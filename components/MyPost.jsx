@@ -60,7 +60,7 @@ function MyPost() {
               }}
             >
                 <Link style={{textDecoration:'none'}} href={`/post/${posts._id}`}>
-            <Box> <Typography variant="answer">{posts.post.split(" ").slice(0, 8).join(" ")}</Typography></Box>
+            <Box> <Typography variant="answer">{posts.post?.split(" ").slice(0, 8).join(" ")}</Typography></Box>
             </Link>
             </Box>
           ))
