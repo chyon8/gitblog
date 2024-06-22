@@ -24,7 +24,7 @@ export default function Organization({orgs,setReposOrgParent,setOrgNameParent,cu
           },
           params: {
             sort: 'updated',
-            per_page: 1,
+            per_page: 10,
             page: currentPageOrg
           },
         }).then((res) => {
