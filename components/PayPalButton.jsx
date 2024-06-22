@@ -10,7 +10,7 @@ const PayPalButton = ({userId}) => {
       createSubscription={(data, actions) => {
         return actions.subscription.create({
          
-          'plan_id': "P-47922282H07186007MZ2RY4I",
+          'plan_id': "P-4831881123204870WMZ2ZCRY",
           "custom_id": userId
         });
       }}

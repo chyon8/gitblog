@@ -27,7 +27,10 @@ export default function DashboardOrg() {
   const [selectedCommit, setSelectedCommit] = useState(null);
   const [checked, setChecked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageOrg, setCurrentPageOrg] = useState(1);
   const [totalPages,setTotalPages]=useState(1)
+  const [totalPagesOrg,setTotalPagesOrg]=useState(1)
+  const [totalPagesRepo,setTotalPagesRepo]=useState(1)
   const [orgs, setOrgs] = useState([]);
   const [orgName, setOrgName] = useState(null);
 
@@ -42,18 +45,12 @@ export default function DashboardOrg() {
         params: {
           visibility: 'all',
           sort: 'updated',
+    
    
         },
       }).then((res) => {
         setOrgs(res.data);
-        const linkHeader = res.headers.link;
-        if (linkHeader) {
-          const totalPages = getTotalPages(linkHeader);
-          setTotalPagesRepo(totalPages);
-         
-        } else {
-          setTotalPagesRepo(1);
-        }
+     
       }).catch((err) => {
         console.error("Error fetching repositories:", err);
       });
@@ -69,6 +66,7 @@ export default function DashboardOrg() {
     if (selectedRepo) {
       fetchCommits(selectedRepo, currentPage);
     }
+
 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,6 +89,14 @@ export default function DashboardOrg() {
         setSelectedCommit(null);
        
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        const linkHeader = res.headers.link;
+        if (linkHeader) {
+          const totalPages = getTotalPages(linkHeader);
+          setTotalPages(totalPages)
+         
+        } else {
+          setTotalPages(1);
+        }
      
       }).catch((err) => {
         console.error("Error fetching commits:", err);
@@ -123,6 +129,11 @@ export default function DashboardOrg() {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
  
+};
+
+const handlePageChangeRepo = (newPage) => {
+  setCurrentPageOrg(newPage);
+
 };
 
 
@@ -174,7 +185,7 @@ export default function DashboardOrg() {
 
 
 
-{orgs ? ( <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName}/>):
+{orgs ? ( <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName} currentPageOrg={currentPageOrg} setTotalPagesOrgParent={setTotalPagesOrg}/>):
 (   
   <Box sx={{mt:'30px' ,display:'grid',gap:3}}>
   <Typography variant="answer">Not seeing your organizations?</Typography>
@@ -225,7 +236,7 @@ export default function DashboardOrg() {
                
                 
                 <Typography fontSize="11px" fontWeight='600' sx={{ color: 'rgb(168, 168, 168)',textAlign: 'left'}} ><TimeSincePost createdAt={repo.updated_at} /> </Typography>
-               <Link target="_blank" style={{textDecoration:'none'}} href={""}> <Typography sx={{fontSize:'12px', color:'#CCCCCC' ,cursor: 'pointer',whiteSpace:'nowrap',overflow:'hidden' }}>Go to github</Typography></Link>
+         
                 </Box>
                 </Box>
               </Box>
@@ -233,6 +244,7 @@ export default function DashboardOrg() {
                      
           </Box>
 
+          <PaginationRounded onPageChange={handlePageChangeRepo} totalPages={totalPagesOrg}/>
 
           {selectedRepo && (
             <>

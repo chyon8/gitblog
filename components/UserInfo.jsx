@@ -39,18 +39,17 @@ try{
       })
     });
 
+    window.location.reload();
+
     if (!response.ok) {
       throw new Error('Failed to cancel subscription');
     }
 
-    const data = await response.json();
-    console.log('Subscription cancelled successfully:', data);
-   
-window.location.reload()
+    //const data = await response.json();
+    //console.log('Subscription cancelled successfully:', data);
 
   } catch (error) {
     console.error('Error cancelling subscription:', error.message);
-    // Handle error appropriately
   }
 
   }
