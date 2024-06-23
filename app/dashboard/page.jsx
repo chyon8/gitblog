@@ -41,6 +41,7 @@ export default function Dashboard() {
         },
         params: {
           visibility: 'all',
+           affiliation: 'owner',
           sort: 'updated',
           per_page: 10,
           page: currentPageRepo

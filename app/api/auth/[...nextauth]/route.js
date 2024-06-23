@@ -54,6 +54,7 @@ const authOptions = {
         session.user.id = userData._id;
         session.user.subscribed = userData.subscribed;
         session.user.credits = userData.credits;
+        session.user.startTime = userData.startTime
       }
       if (token) {
         session.accessToken = token.accessToken;

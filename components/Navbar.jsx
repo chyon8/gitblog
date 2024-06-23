@@ -31,7 +31,9 @@ export default function Navbar() {
 
 <Box sx={{display:'grid'}}>
 <Typography fontSize='11px' variant="answer">Credits</Typography>
-<Typography textAlign='center' variant="answer">{session.user.credits}</Typography>
+{session.user.subscribed ? (<Typography textAlign='center' variant="question"> &infin;</Typography>):
+(<Typography textAlign='center' variant="answer">{session.user.credits}</Typography>)}
+
 </Box>
 
         <Link className="font text-sm ml-2 mt-1" href={"/profile"}>

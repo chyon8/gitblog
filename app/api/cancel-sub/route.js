@@ -70,7 +70,8 @@ export async function POST(req) {
     });
 
 
-        user.subscribed = false; // Assuming 'subscribed' is a boolean field
+        user.subscribed = false;
+        user.credits=300
         await user.save();
    
     

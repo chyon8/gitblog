@@ -1,5 +1,5 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
-
+import BASE_URL from "@/app/config";
 const PayPalButton = ({userId}) => {
   return (
     <PayPalButtons
@@ -16,11 +16,12 @@ const PayPalButton = ({userId}) => {
       }}
       onApprove={(data, actions) => {
         console.log('Subscription approved', data);
-        // You can call your server here to save the subscription details
+        window.location.href = `${BASE_URL}/redirect`;
       }}
       onError={(err) => {
         console.error('Subscription error', err);
       }}
+     
     />
   );
 };

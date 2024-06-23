@@ -112,6 +112,7 @@ const handleCreate = async () => {
   try {
       if(session.user.credits > 0) {
           const res = await fetch('http://localhost:8000/start_blog', {
+          //const res = await fetch(`${BASE_URL}/api/start_blog`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json'
@@ -124,10 +125,16 @@ const handleCreate = async () => {
           const eventSource = new EventSource(`http://localhost:8000/stream_blog/${taskId}`);
 
           eventSource.onmessage = (event) => {
-           
-              const newMessage = event.data;
               setLoading(false)
+              const newMessage = event.data;
+             if(newMessage === "DONEGENERATING"){
+              eventSource.close()
+              
+              takeCredits(); 
+          }
+          else{
               setResponse((prevResponse) => prevResponse + newMessage);
+          }
           };
      
           eventSource.onerror = (error) => {
@@ -143,7 +150,6 @@ const handleCreate = async () => {
           eventSource.onclose = () => {
             console.log("closed")
           
-            takeCredits(); // Run takeCredits if the blog generation process completes successfully
           };
 
       } else {
@@ -208,8 +214,8 @@ const formatResponse = (text) => {
       .then((data) => {
         setSaved(true)
           alert("saved")
-          console.log("saved")
-          console.log(saved)
+
+      
         if (data.errors) {
           
           

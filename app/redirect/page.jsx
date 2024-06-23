@@ -1,20 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+"use client"
 
+import { useEffect, useState } from 'react';
+
+import { Box,CircularProgress,Typography,Container } from '@mui/material';
+import BASE_URL from '../config';
 export default function LoadingPage() {
   const [isProcessing, setIsProcessing] = useState(true);
-  const router = useRouter();
 
+
+  /*
   useEffect(() => {
     const checkStatus = async () => {
       try {
         const response = await fetch('/api/paypal-webhook');
         const data = await response.json();
+        console.log(data)
 
         if (data.status === 'completed') {
-          router.push('/success');
+          router.push('/profile');
         } else {
-          setTimeout(checkStatus, 2000);
+          setTimeout(checkStatus, 3000);
         }
       } catch (error) {
         console.error('Error checking subscription status:', error);
@@ -23,14 +28,29 @@ export default function LoadingPage() {
 
     checkStatus();
   }, [router]);
+*/
+
+useEffect(() => {
+  // Set a timeout for 5 seconds to simulate processing and then redirect
+  const timeout = setTimeout(() => {
+    setIsProcessing(false);
+    window.location.href=`${BASE_URL}/profile`
+  }, 20000); // 5000 milliseconds = 5 seconds
+
+  // Clean up the timeout if the component unmounts before the timeout completes
+  return () => clearTimeout(timeout);
+}, []);
 
   return (
-    <div>
+    <Container>
       {isProcessing ? (
-        <div>Loading, please wait...</div>
+        <Box sx={{display:'grid',justifyItems:'center',height:'150px',mt:'50px'}}>
+          <Typography textAlign='center' sx={{mb:'34px'}} variant='question'> Checking you out...hold tight!</Typography>
+          <CircularProgress/>
+         </Box>
       ) : (
-        <div>Redirecting...</div>
+        <Box>Redirecting...</Box>
       )}
-    </div>
+    </Container>
   );
 }

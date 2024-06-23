@@ -1,10 +1,13 @@
 import { Box, Modal, Typography, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { useState } from 'react';
 
-function Warning({open,setOpen,handleCancel,}) 
+function Warning({open,setOpen,handleCancel}) 
 {
   const handleClose = () => setOpen(true);
+  const [processing,setProcessing]=useState(false)
+
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -38,13 +41,30 @@ function Warning({open,setOpen,handleCancel,})
           <Box sx={{ mt: '36px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <WarningAmberIcon sx={{color:'#FFFFFF'}} />
           </Box>
-          <Typography sx={{ mt: '16px', mb: '24px', color:'#FFFFFF' }} textAlign="center">
-            Do you wanna cancel the subscription?
+          <Box sx={{pl:1,pr:1}}>
+          <Typography fontSize='13px' sx={{ mt: '16px', color:'#FFFFFF' }} textAlign="center">
+          Sure you want to cancel your subscription?
           </Typography>
+          <Typography fontSize='13px' sx={{ mt: '10px', color:'#FFFFFF' }} textAlign="center">
+          Even though your subscription has been canceled
+          </Typography>
+          <Typography fontSize='13px' sx={{ mt: '5px', mb: '14px', color: '#FFFFFF', textAlign: 'center' }}>
+      you still have{' '}
+      <span style={{ color: '#00FF66' }}>300 credits</span> available for use!
+    </Typography>
+          </Box>
+          {processing && (<Typography fontSize='11px' sx={{ color:'#00FF66', mb: '24px' }} textAlign="center">
+            Canceling the subscription...
+          </Typography>)}
+          
+
         </Box>
         <Box sx={{ pl: '8px', pr: '8px', pb: '16px' }}>
-          <Button
-            onClick={() => handleCancel()}
+          {!processing && (     <Button
+            onClick={() =>{ 
+              setProcessing(true)
+              handleCancel()
+            }}
             fullWidth
             sx={{
               height: '30px',
@@ -53,7 +73,8 @@ function Warning({open,setOpen,handleCancel,})
             }}
           >
             <Typography>Cancel</Typography>
-          </Button>
+          </Button>)}
+    
         </Box>
       </Box>
     </Modal>

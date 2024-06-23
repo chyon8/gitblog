@@ -20,9 +20,12 @@ export async function POST(req) {
       if (user.credits <= 0) {
         return NextResponse.json({ message: "Not enough credits" }, { status: 403 });
       }
-  
-      user.credits -= 1;
-      await user.save();
+      
+  if(!user.subscribed){
+    user.credits -= 1;
+    await user.save();
+  }
+    
   
     
    

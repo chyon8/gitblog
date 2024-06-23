@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
+  
 
   try {
 
@@ -13,12 +14,10 @@ export async function POST(req) {
     const { event_type,resource } = body;
     
 
-
-
     switch (event_type) {
       case 'BILLING.SUBSCRIPTION.ACTIVATED':
         console.log('Subscription activated');
-    
+  
         await handleSubActivated(resource.custom_id,resource.billing_info.next_billing_time);
         break;
 
@@ -30,14 +29,17 @@ export async function POST(req) {
 
       case 'PAYMENT.SALE.COMPLETED':
         console.log('Payment completed');
-    
+        
         await handlePaid(resource.custom,resource.billing_agreement_id,resource.create_time);
+       
  
 
         break;
 
         case 'BILLING.SUBSCRIPTION.CREATED':
           console.log("created");
+          
+          
           
   
           break;
@@ -62,26 +64,23 @@ export async function POST(req) {
 
 async function handlePaid(userId,subId,start) {
   try {
+
    
     const userObjectId = new mongoose.Types.ObjectId(userId);
     const user = await User.findOne({ _id:userObjectId });
 
-    if (user) {
-      user.subscribed = true;
-      user.subscriptionId= subId
-      user.startTime=start
-      await user.save();
-      console.log(`subscription activated`);
-    } else {
-      console.log('User not found for subscription activation');
-    }
-
-    if(user.subscribed){
+      if (user && !user.subscribed) {
+        user.subscribed = true;
+        user.subscriptionId = subId;
+        user.startTime = start;
+        user.credits=10
+        await user.save();
+        console.log('Subscription activated');
+      } else {
+        console.log('User not found for subscription activation');
+      }
+  
       return NextResponse.json({ status: 'completed' });
-    } else {
-      return NextResponse.json({ status: 'processing' });
-    }
- 
 
 
   
