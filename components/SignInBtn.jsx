@@ -11,7 +11,7 @@ export default function SignInBtn() {
 
 <div className="flex">
 
-<Button sx={{ color:'#0A0A0A', backgroundColor: '#00FF66',}}
+<Button sx={{ color:'#0A0A0A', backgroundColor: '#00FF66'}}
 onClick={() => signIn("google")} 
     ><Typography fontWeight='600' >Sign in</Typography>
   </Button>

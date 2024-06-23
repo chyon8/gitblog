@@ -13,7 +13,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import PayPalButton from '@/components/PayPalButton';
+import { redirect } from 'next/navigation';
 
 
 export default function Dashboard() {
@@ -31,7 +31,9 @@ export default function Dashboard() {
   const [totalPagesRepo,setTotalPagesRepo]=useState(1)
   const [orgs, setOrgs] = useState([]);
 
-
+  if(!session){
+    redirect('/')
+  }
   
   useEffect(() => {
     if (session?.accessToken) {
@@ -179,10 +181,10 @@ const handlePageChangeRepo = (newPage) => {
       {!checked ? (
         <Box>
 <Link href={'dashboard/orgs'}>
-<Typography sx={{mb:'24px'}} variant='answer'>Get My Organizations</Typography>
+<Typography sx={{mb:'24px'}} variant='answer'>Get Organizations</Typography>
 </Link>
           
-          <Typography variant="question">Your Repositories</Typography>
+          <Typography  textAlign='center' variant="question">Your Repositories</Typography>
           <Box sx={{ height: '150px' }}>
             <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>
               <Typography sx={{ textAlign: 'center', color: '#FFFFFF' }} fontSize="18px">Select a commit and click continue</Typography>

@@ -181,7 +181,7 @@ const handlePageChangeRepo = (newPage) => {
 
 
 
-<Typography variant="question">Your Organizations</Typography>
+<Typography textAlign='center' variant="question">Your Organizations</Typography>
 
 
 
