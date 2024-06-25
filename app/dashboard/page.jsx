@@ -17,7 +17,7 @@ import { redirect } from 'next/navigation';
 
 
 export default function Dashboard() {
-  const { data: session } = useSession();
+  const { data: session,status } = useSession();
   const [repos, setRepos] = useState([]);
   const [commits, setCommits] = useState([]);
   const [selectedRepo, setSelectedRepo] = useState(null);
@@ -31,9 +31,7 @@ export default function Dashboard() {
   const [totalPagesRepo,setTotalPagesRepo]=useState(1)
   const [orgs, setOrgs] = useState([]);
 
-  if(!session){
-    redirect('/')
-  }
+
   
   useEffect(() => {
     if (session?.accessToken) {
@@ -64,7 +62,9 @@ export default function Dashboard() {
     }
   }, [currentPageRepo, session]);
 
-
+  if(status === "unauthenticated"){
+    redirect('/login')
+  }
   
 
   useEffect(() => {

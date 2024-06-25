@@ -1,24 +1,20 @@
 "use client"
 
 import { Box, Button, Typography, Divider } from '@mui/material';
-import { useRouter } from 'next/navigation';
+
 
 
 import AddIcon from '@mui/icons-material/Add';
 
-function PricingLanding() 
+function HowItWorks() 
 {
-    const router = useRouter()
 
-const handleTry = ()=>{
-router.push('/login')
-}
+
 
 
   return (
 
     <Box>
-        <Typography textAlign='center' sx={{mb:'20px'}} variant='question' fontWeight={600} fontSize={24}>Pricing</Typography>
       <Box
         sx={{
           display: 'grid',
@@ -37,10 +33,13 @@ router.push('/login')
         
           <Box sx={{pl:1,pr:1}}>
           <Typography fontSize='28px' fontWeight={600} sx={{ mt: '45px', color:'#FFFFFF' }} textAlign="center">
-         Monthly Subscription
+         How It Works
           </Typography>
-          <Typography fontWeight={700} fontSize='44px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="center">
-          $6.99
+          <Typography fontWeight={700} fontSize='36px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="center">
+          Connect Your Repos
+          </Typography>
+          <Typography fontWeight={500} fontSize='20px' sx={{ mt: '25px', color:'#FFFFFF',mb:'20px' }} textAlign="center">
+          Sign in with your GitHub or GitLab account and select the repositories and commits you want to use.
           </Typography>
           <Divider  sx={{background:'#222222', height:'2px', mb:'20px'}}/>
         
@@ -68,9 +67,7 @@ router.push('/login')
 
         </Box>
         
-        <Button onClick={handleTry} sx={{mt:'24px', color:'#0A0A0A', backgroundColor: '#00FF66',}} fullWidth>
-           <Typography fontWeight={700} fontSize='16px' >Get Started</Typography>
-            </Button>
+     
           </Box>
       
           
@@ -85,4 +82,4 @@ router.push('/login')
   );
 }
 
-export default PricingLanding;
+export default HowItWorks;

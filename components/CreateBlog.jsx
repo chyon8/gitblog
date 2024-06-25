@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown'
 import BASE_URL from '@/app/config';
 import LottieAnimation from './LottieAnimation';
 import { EventSourcePolyfill } from 'event-source-polyfill';
+import MarkdownArea from './MarkdownArea';
 
 
 export default function CreateBlog({commitDetails,commitMsg}) {
@@ -248,6 +249,7 @@ const formatResponse = (text) => {
           </Button>
         </Box>
 
+
         <Box sx={{mt:'24px',display:'flex',gap:3}}>
           <Box sx={{display:'grid',gap:2}}>
           <Typography variant='answer'>Style</Typography>
@@ -286,6 +288,8 @@ const formatResponse = (text) => {
         )}
     
       </Box>
+
+      <MarkdownArea response={response}/>
 
       <Box><Typography variant='answer'>{commitMsg}</Typography></Box>
 
