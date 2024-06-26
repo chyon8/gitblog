@@ -1,0 +1,77 @@
+
+.w-md-editor {
+  /*box-shadow:0 0 3px rgb(52,52,52) !important;*/
+  box-shadow: none !important;
+}
+
+  .w-md-editor, .w-md-editor-text {
+    background-color: #252525 !important;
+    color: #FFFFFF !important;
+
+  }
+
+  .wmde-markdown   {
+    background-color: #252525 !important;
+    color:#FFFFFF !important;
+   
+    
+  }
+  
+  .w-md-editor-text-pre > code .token.title,
+  .w-md-editor-text-pre > code .token.title.important {
+    color: #FFFFFF !important;
+  
+  }
+
+  .w-md-editor-preview h1,
+.w-md-editor-preview h2,
+.w-md-editor-preview h3 {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+  .w-md-editor-toolbar {
+    background-color: #252525 !important;
+  }
+
+  .w-md-editor-toolbar ul li button {
+    color: #FFFFFF !important;
+    background-color: #252525;
+  }
+  
+  /* Target toolbar item icons */
+  .w-md-editor-toolbar ul li button svg {
+    fill: #FFFFFF !important;
+   
+  }
+
+
+  .w-md-editor-toolbar ul li.active button {
+    color: #00FF66 !important;
+  }
+  
+  .w-md-editor-toolbar ul li.active button svg {
+    fill: #00FF66 !important;
+  }
+ 
+
+
+
+/* If you want to remove default borders */
+ .w-md-editor-toolbar {
+  border-bottom: none !important;
+  background-color: #1e1e1e !important;
+}
+
+.markdown-editor-container {
+  background: none;
+  padding: 0;
+
+}
+
+
+.wmde-markdown-var .w-md-editor .w-md-editor-show-preview{
+height:fit-content !important
+}
+
+

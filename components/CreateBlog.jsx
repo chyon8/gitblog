@@ -8,7 +8,6 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactMarkdown from 'react-markdown'
 import BASE_URL from '@/app/config';
 import LottieAnimation from './LottieAnimation';
-import { EventSourcePolyfill } from 'event-source-polyfill';
 import MarkdownArea from './MarkdownArea';
 
 
@@ -26,6 +25,9 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const [saved,setSaved]= useState(false)
   const [loading, setLoading] = useState(false); 
   const [eventSource, setEventSource] = useState(null);
+  const [markdownValue, setMarkdownValue] = useState('');
+  const [blogId, setBlogId] = useState(null);
+ 
 
   useEffect(() => {
     return () => {
@@ -40,6 +42,10 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     return <div>Loading...</div>;
   }
 
+  const handleMarkdownChange = (newValue) => {
+    setMarkdownValue(newValue);
+    // You can do anything else you need with the new value here
+  };
 
   const handleContinue = () => {
     setChecked(true);
@@ -108,6 +114,8 @@ export default function CreateBlog({commitDetails,commitMsg}) {
 const handleCreate = async () => {
   const patches = selectedFiles.map(file => file.patch).join('\n');
   setResponse('')
+  setMarkdownValue('')
+  setBlogId(null)
   setLoading(true);
 
   try {
@@ -135,6 +143,7 @@ const handleCreate = async () => {
           }
           else{
               setResponse((prevResponse) => prevResponse + newMessage);
+              setMarkdownValue((prevResponse) => prevResponse + newMessage);
           }
           };
      
@@ -194,7 +203,7 @@ const formatResponse = (text) => {
 
 
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(response).then(() => {
+    navigator.clipboard.writeText(markdownValue).then(() => {
       alert('Copied to clipboard!');
     }).catch(err => {
       console.error('Error copying to clipboard:', err);
@@ -209,13 +218,15 @@ const formatResponse = (text) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({post:response}),
+      body: JSON.stringify({post:markdownValue,blogId:blogId}),
     })
       .then((res) => res.json())
       .then((data) => {
+       
+        setBlogId(data.blogId)
+        alert("saved")
         setSaved(true)
-          alert("saved")
-
+        
       
         if (data.errors) {
           
@@ -280,16 +291,21 @@ const formatResponse = (text) => {
             Copy to Clipboard
           </Button>
         )}
-      {loading ? <LottieAnimation/> :<Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response)}</Typography>}
+      {loading && !response ? <LottieAnimation/> :  
+   /* <Typography variant='answer' sx={{lineHeight: '2em'}}> {formatResponse(response)}</Typography> */
+""
+     }
       {response && !loading && (
-          <Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }} disabled={saved}>
+            <><MarkdownArea response={response} onValueChange={handleMarkdownChange} /><Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }} >
             Save
-          </Button>
+          </Button></>
         )}
     
       </Box>
+      
 
-      <MarkdownArea response={response}/>
+
+    
 
       <Box><Typography variant='answer'>{commitMsg}</Typography></Box>
 
