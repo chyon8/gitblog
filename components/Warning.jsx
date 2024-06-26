@@ -50,7 +50,7 @@ function Warning({open,setOpen,handleCancel})
           </Typography>
           <Typography fontSize='13px' sx={{ mt: '5px', mb: '14px', color: '#FFFFFF', textAlign: 'center' }}>
       you still have{' '}
-      <span style={{ color: '#00FF66' }}>300 credits</span> available for use!
+      <span style={{ color: '#00FF66' }}>150 credits</span> available for use!
     </Typography>
           </Box>
           {processing && (<Typography fontSize='11px' sx={{ color:'#00FF66', mb: '24px' }} textAlign="center">

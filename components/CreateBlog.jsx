@@ -73,10 +73,14 @@ export default function CreateBlog({commitDetails,commitMsg}) {
 
   }
   }
-/*
+
   const handleCreate = async () => {
 
     const patches = selectedFiles.map(file => file.patch).join('\n');
+    setResponse('')
+    setMarkdownValue('')
+    setBlogId(null)
+    setLoading(true);
 
     setLoading(true);
 
@@ -91,6 +95,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
       });
       const data = await res.json();
       setResponse(data.response);
+      setMarkdownValue(data.response);
       takeCredits()
 
     }
@@ -108,9 +113,10 @@ export default function CreateBlog({commitDetails,commitMsg}) {
       
     }
   }; 
-*/
 
 
+
+/*
 const handleCreate = async () => {
   const patches = selectedFiles.map(file => file.patch).join('\n');
   setResponse('')
@@ -150,7 +156,7 @@ const handleCreate = async () => {
           eventSource.onerror = (error) => {
               console.error('Error:', error);
               eventSource.close()
-              setResponse(prevResponse => prevResponse + ' An error occurred while generating the blog. Click create again to keep generating');
+              setResponse(prevResponse => prevResponse + ' An error occurred while generating the blog.');
               setLoading(false);
             
               
@@ -172,7 +178,7 @@ const handleCreate = async () => {
       setLoading(false);
   }
 };
-
+*/
 
 
 

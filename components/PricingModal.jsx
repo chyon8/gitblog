@@ -56,11 +56,11 @@ function PricingModal({open,setOpen,handleCancel})
          Monthly Subscription
           </Typography>
           <Typography fontWeight={700} fontSize='44px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="center">
-          $6.99
+          $9.99
           </Typography>
           <Divider  sx={{background:'#222222',width:'450px', height:'2px', mb:'20px'}}/>
         
-        <Box className="features" sx={{display:'grid',gap:3}}>
+          <Box className="features" sx={{display:'grid',gap:3}}>
           <Box sx={{display:'flex'}}>
           <AddIcon sx={{color:'#00FF66',mr:'5px'}}/>
             <Typography sx={{color:'#FFFFFF',mt:'3px'}} fontWeight={700} fontSize='16px'>Organization Repo Access</Typography>
@@ -68,21 +68,10 @@ function PricingModal({open,setOpen,handleCancel})
             <Box sx={{display:'flex'}}>
             <AddIcon sx={{color:'#00FF66',mr:'5px'}}/>
             <Typography sx={{color:'#FFFFFF',mt:'3px'}} fontWeight={700} fontSize='16px'>Unlimited Blog Generation </Typography>
-            </Box>
-            <Box sx={{display:'flex'}}>
-            <AddIcon sx={{color:'#00FF66',mr:'5px'}}/>
-            <Typography sx={{color:'#FFFFFF',mt:'3px'}} fontWeight={700} fontSize='16px'>Give Detailed Instruction To Model</Typography>
-            </Box>
-            <Box sx={{display:'flex'}}>
-            <AddIcon sx={{color:'#00FF66',mr:'5px'}}/>
-            <Typography sx={{color:'#FFFFFF',mt:'3px'}} fontWeight={700} fontSize='16px'>Give Examples To Model</Typography>
-            </Box>
-            <Box sx={{display:'flex'}}>
-            <AddIcon sx={{color:'#00FF66',mr:'5px'}}/>
-            <Typography sx={{color:'#FFFFFF',mt:'3px'}} fontWeight={700} fontSize='16px'>...And More</Typography>
-            </Box>
+            </Box>  
 
         </Box>
+
           </Box>
           {processing && (<Typography fontSize='11px' sx={{ color:'#00FF66', mt: '16px', mb: '24px' }} textAlign="center">
             Canceling the subscription...

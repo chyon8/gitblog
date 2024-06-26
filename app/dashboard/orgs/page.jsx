@@ -11,7 +11,6 @@ import PaginationRounded from '@/components/Pagination';
 import TimeSincePost from '@/components/TImeSincePost';
 import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
-import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Organization from '@/components/Organization';
 import { redirect } from 'next/navigation';
@@ -59,7 +58,7 @@ export default function DashboardOrg() {
 
 
   if(!session?.user.subscribed){
-    redirect('/dashboard')
+    redirect('/profile')
     }
 
   useEffect(() => {

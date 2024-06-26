@@ -9,13 +9,14 @@ import { useEffect, useState } from 'react';
 import BASE_URL from '@/app/config';
 import { Typography, Box,Button } from '@mui/material';
 import ReactMarkdown from 'react-markdown'
+import MarkdownArea from './MarkdownArea';
 
 const PostDetail = (userId) => {
   const router = useParams();
   const postId = router.postid;
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [markdownValue, setMarkdownValue] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +24,7 @@ const PostDetail = (userId) => {
         const response = await fetch(`${BASE_URL}/api/post/${postId}`);
         const result = await response.json();
         setPost(result.post);
+        setMarkdownValue(result.post.post)
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -51,6 +53,46 @@ const PostDetail = (userId) => {
     });
   };
 
+  const handleMarkdownChange = (newValue) => {
+    setMarkdownValue(newValue);
+    // You can do anything else you need with the new value here
+  };
+
+  const handleSave = () =>{
+
+    fetch(`${BASE_URL}/api/save`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({post:markdownValue,blogId:postId}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+       
+        setBlogId(data.blogId)
+        alert("saved")
+        setSaved(true)
+        
+      
+        if (data.errors) {
+          
+          
+        } else {
+          setError(data?.msg || 'Success');
+       
+         
+        
+        }
+    
+     
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+ 
+
   return (
 
     
@@ -63,7 +105,13 @@ const PostDetail = (userId) => {
             Copy to Clipboard
           </Button>
 
+          <><MarkdownArea response={post.post} onValueChange={handleMarkdownChange} /><Button onClick={handleSave} sx={{ mt: 2, color: '#0A0A0A', backgroundColor: '#00FF66' }} >
+            Save
+          </Button></>
+{/*
   <Typography variant='answer'>{formatResponse(post.post)}</Typography>
+  */}
+
           </Box>
 
 

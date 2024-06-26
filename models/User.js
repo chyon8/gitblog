@@ -35,7 +35,7 @@ const userSchema = new Schema(
     },
     credits:{
       type:Number,
-      default:20
+      default:10
     },
     favorites: {
       type: Map,

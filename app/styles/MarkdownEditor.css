@@ -30,6 +30,11 @@
   box-shadow: none !important;
 }
 
+.w-md-editor-preview pre{
+
+  color: #252525
+}
+
   .w-md-editor-toolbar {
     background-color: #252525 !important;
   }
