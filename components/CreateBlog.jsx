@@ -22,6 +22,8 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const [response, setResponse] = useState('');
   const [postType,setPostType]= useState("tutorial")
   const [lang,setLang]= useState("english")
+  const [formality,setFormality]= useState("formal")
+  const [tone,setTone]= useState("casual")
   const [saved,setSaved]= useState(false)
   const [loading, setLoading] = useState(false); 
   const [eventSource, setEventSource] = useState(null);
@@ -59,6 +61,14 @@ export default function CreateBlog({commitDetails,commitMsg}) {
     setLang(event.target.value)
     }
 
+  const handleSelectTone=(event)=>{
+      setTone(event.target.value)
+      }
+
+  const handleSelectFormal=(event)=>{
+      setFormality(event.target.value)
+      }
+
   const takeCredits =async () =>{
     try {
       const res = await fetch(`${BASE_URL}/api/credits`, {
@@ -91,7 +101,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType })
+        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType,formality:formality,tone:tone })
       });
       const data = await res.json();
       setResponse(data.response);
@@ -274,6 +284,7 @@ const formatResponse = (text) => {
     <option value="tutorial">Tutorial</option>
     <option value="developemt_diary">Development diary</option>
     <option value="retrospective">Retrospective</option>
+    <option value="problem_solving">Problem solving</option>
     <option value="review_and_critique">Review and critique</option>
     <option value="free_style">Free Style</option>
     </select>
@@ -285,9 +296,33 @@ const formatResponse = (text) => {
     <option value="english">English</option>
     <option value="korean">Korean</option>
     <option value="japanese">Japanese</option>
+    <option value="spanish">Spanish</option>
+    <option value="french">French</option>
 
     </select>
    </Box>
+
+
+   <Box sx={{display:'grid',gap:2}}>
+    <Typography variant='answer'>Formality</Typography>
+    <select onChange={handleSelectFormal} value={formality} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
+    <option value="formal">Formal</option>
+    <option value="informal">Informal</option>
+
+    </select>
+   </Box>
+
+   <Box sx={{display:'grid',gap:2}}>
+    <Typography variant='answer'>Tone</Typography>
+    <select onChange={handleSelectTone} value={tone} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
+    <option value="casual">Casual</option>
+    <option value="professional">Professional</option>
+    <option value="standard">Standard</option>
+    <option value="funny">funny</option>
+
+    </select>
+   </Box>
+
         </Box>
 
       </Box>

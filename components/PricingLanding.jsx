@@ -18,7 +18,7 @@ router.push('/login')
   return (
 
     <Box>
-        <Typography textAlign='center' sx={{mb:'20px'}} variant='question' fontWeight={600} fontSize={24}>Pricing</Typography>
+
       <Box
         sx={{
           display: 'grid',
@@ -57,7 +57,7 @@ router.push('/login')
         </Box>
         
         <Button onClick={handleTry} sx={{mt:'24px', color:'#0A0A0A', backgroundColor: '#00FF66',}} fullWidth>
-           <Typography fontWeight={700} fontSize='16px' >Get Started</Typography>
+           <Typography fontWeight={700} fontSize='16px' >Get Started For Free</Typography>
             </Button>
           </Box>
       
