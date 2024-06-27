@@ -96,7 +96,8 @@ export default function CreateBlog({commitDetails,commitMsg}) {
 
     try {
       if(session.user.credits > 0){
-        const res = await fetch('http://localhost:8000/create_blog', {
+       // const res = await fetch('http://localhost:8000/create_blog', {
+        const res = await fetch(`${BASE_URL}/api/create_blog`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
