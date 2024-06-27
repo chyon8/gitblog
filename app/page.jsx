@@ -8,6 +8,7 @@ import PricingLanding from '@/components/PricingLanding';
 import { useRouter } from 'next/navigation';
 import HowItWorks from '@/components/HowItWorks';
 import screenshot4 from '../public/images/screenshot4.png'
+import screenshot5 from '../public/images/screenshot5.png'
 import screenshot3 from '../public/images/screenshot3.png'
 
 export default function LandingPage() {
@@ -56,7 +57,7 @@ export default function LandingPage() {
           <Box>
             <Typography sx={{mb:'14px'}} textAlign='center' fontWeight={700} fontSize='16px' variant='question'>Turn this into</Typography>
           <Box>
-            <img style={{borderRadius:'16px' ,width:'100%', height:'100%'}} src={screenshot4.src} alt="screenshot" />
+            <img style={{borderRadius:'16px' ,width:'100%', height:'100%'}} src={screenshot5.src} alt="screenshot" />
             </Box>
 
           <Box sx={{mt:'24px'}}>
