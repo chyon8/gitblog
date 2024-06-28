@@ -71,7 +71,7 @@ export async function POST(req) {
 
 
         user.subscribed = false;
-        user.credits=150
+        user.credits=100
         await user.save();
    
     

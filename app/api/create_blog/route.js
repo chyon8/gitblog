@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { Anthropic } from '@anthropic-ai/sdk';
 
+export const dynamic = 'force-dynamic'
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-
 if (!ANTHROPIC_API_KEY) {
   throw new Error("Anthropic API key is not set in environment variables");
 }
@@ -12,17 +12,35 @@ const anthropic = new Anthropic({
   apiKey: ANTHROPIC_API_KEY,
 });
 
+// Estimate tokens based on characters (rough approximation)
+function estimateTokens(text) {
+  return Math.ceil(text.length / 4);
+}
+
+// Truncate text to fit within token limit
+function truncateText(text, maxTokens) {
+  const estimatedTokens = estimateTokens(text);
+  if (estimatedTokens <= maxTokens) return text;
+  
+  const truncationRatio = maxTokens / estimatedTokens;
+  return text.slice(0, Math.floor(text.length * truncationRatio));
+}
+
 export async function POST(request) {
   try {
-    const { text, commitMsg, postType, lang, formality, tone } = await request.json();
+    const { text, commitMsg, postType, lang, tone } = await request.json();
+    
+    // Set a max token limit for the input (adjust as needed)
+    const MAX_INPUT_TOKENS = 4000;
+    
+    // Truncate the input text if it exceeds the token limit
+    const truncatedText = truncateText(text, MAX_INPUT_TOKENS);
 
     const prompt = `Write a technical blog post based on the following information:
-
-Input Text: ${text}
+Input Text: ${truncatedText}
 Related Commit Message: ${commitMsg}
 Blog Post Style: ${postType}
 Output Language: ${lang}
-Formality: ${formality} (For languages like Korean, specify the ending style: ~합니다, 입니다 for formal, and ~하다, ~이다, ~했다 for informal, DON'T use ~이야,~했어)
 Tone: ${tone}
 
 Instructions:
@@ -33,15 +51,15 @@ Instructions:
 5. Use proper Markdown formatting throughout.
 6. Ensure adequate spacing between paragraphs for readability.
 7. Create 3 tags that summarize the whole content and put it before the title.
-8. Adjust the wordings depending on Formality.
-9. Adjust the tone of the whole content based on ${tone}.
-10. Include some code blocks if necessary for the posts.
+8. Adjust the tone of the whole content based on ${tone}.
+9. Include some code blocks if necessary for the posts.
 
 Begin the blog post now.`;
 
     const response = await anthropic.messages.create({
       model: "claude-3-sonnet-20240229",
-      max_tokens: 1000,
+      //model: "claude-3-5-sonnet-20240620",
+      max_tokens: 2000,
       temperature: 0.1,
       messages: [{ role: "user", content: prompt }]
     });

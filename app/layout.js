@@ -8,66 +8,39 @@ import theme from '../app/theme'
 import Footer from '../components/Footer'
 import GoogleAnalytics from "@/lib/googleAnalytics";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Sell Up",
-  description: "Market place for side projects",
-  
+  title: "GitBlog",
+  description: "Turn code commits into compelling blog posts ",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="shortcut icon" href="images/favicon.png" />
+
+        <meta property="og:image" content="https://i.ibb.co/XW9nnjg/gitblog-logo-custom.png" />
+      </head>
+      <body className={inter.className}>
         <NextAuthProvider>
-          
-<head>
-  
-<link rel="shortcut icon" href="images/favicon.jpg" />
-<script async src="https://tally.so/widgets/embed.js"></script>
-
-<meta property="og:image" content="https://i.ibb.co/Bc10XpB/sellup.jpg" />
-
-</head>
-      <body className={inter.className} >
-      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-					<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-				) : null}
-      
-          <div className="flex flex-col">
-           
-            <div className="flex-grow bg-page text-default-text">
-       <AppRouterCacheProvider>
-       <ThemeProvider theme={theme}>
-
-       <Navbar />
-
- 
-       {children}
-
-       <Footer/>
-       </ThemeProvider>
-        </AppRouterCacheProvider>  
-      
-   
-    
-    </div>
-
-
-
-
-
-   
-
-          </div>
-     
-       
-      </body>
-
-
-
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <div className="flex flex-col">
+                <div className="flex-grow bg-page text-default-text">
+                  <Navbar />
+                  {children}
+                  <Footer />
+                </div>
+              </div>
+              {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+              ) : null}
+            </ThemeProvider>
+          </AppRouterCacheProvider>
         </NextAuthProvider>
+      </body>
     </html>
   );
 }

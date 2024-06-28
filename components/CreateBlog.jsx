@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Typography, Box, Button, Checkbox } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 import ReactMarkdown from 'react-markdown'
 import BASE_URL from '@/app/config';
 import LottieAnimation from './LottieAnimation';
@@ -14,15 +15,11 @@ import MarkdownArea from './MarkdownArea';
 export default function CreateBlog({commitDetails,commitMsg}) {
   const { data: session } = useSession();
 
-
-
-
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [checked, setChecked] = useState(false);
   const [response, setResponse] = useState('');
   const [postType,setPostType]= useState("tutorial")
   const [lang,setLang]= useState("english")
-  const [formality,setFormality]= useState("formal")
   const [tone,setTone]= useState("casual")
   const [saved,setSaved]= useState(false)
   const [loading, setLoading] = useState(false); 
@@ -65,9 +62,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
       setTone(event.target.value)
       }
 
-  const handleSelectFormal=(event)=>{
-      setFormality(event.target.value)
-      }
+
 
   const takeCredits =async () =>{
     try {
@@ -102,7 +97,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType,formality:formality,tone:tone })
+        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType,tone:tone })
       });
       const data = await res.json();
       setResponse(data.response);
@@ -278,7 +273,7 @@ const formatResponse = (text) => {
         </Box>
 
 
-        <Box sx={{mt:'24px',display:'flex',gap:3}}>
+        <Box sx={{mt:'24px',display:'flex',gap:1}}>
           <Box sx={{display:'grid',gap:2}}>
           <Typography variant='answer'>Style</Typography>
         <select onChange={handleSelectType} value={postType} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
@@ -304,21 +299,12 @@ const formatResponse = (text) => {
    </Box>
 
 
-   <Box sx={{display:'grid',gap:2}}>
-    <Typography variant='answer'>Formality</Typography>
-    <select onChange={handleSelectFormal} value={formality} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
-    <option value="formal">Formal</option>
-    <option value="informal">Informal</option>
-
-    </select>
-   </Box>
 
    <Box sx={{display:'grid',gap:2}}>
     <Typography variant='answer'>Tone</Typography>
     <select onChange={handleSelectTone} value={tone} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
     <option value="casual">Casual</option>
     <option value="professional">Professional</option>
-    <option value="standard">Standard</option>
     <option value="funny">funny</option>
 
     </select>

@@ -21,7 +21,7 @@ export default function Navbar() {
     <img src="https://i.ibb.co/XW9nnjg/gitblog-logo-custom.png" alt="logo" style={{width:'30px',height:'30px'}} />
 
 
-       <Typography fontWeight='500' fontSize='18px'sx={{mt:'7px',ml:'4px'}} >Gitblog</Typography> 
+       <Typography fontWeight='500' fontSize='18px'sx={{mt:'7px',ml:'4px'}} >GitBlog</Typography> 
 
       </Box>
       </Link>
