@@ -15,7 +15,7 @@ function PricingModal({open,setOpen,handleCancel})
   const { status, data: session } = useSession();
 
   const initialOptions = {
-    "client-id": "Acm6azZmwAjeR8KI4Cb-6pKVS-EScAQHGFYsIQd8-GqyZIQu7TblKWQS95fh_QtrvGXLNw6i7CFMlsM4",
+    "client-id": "AcTZHsJO96QZcVXAqX-X9ClcqXlx0-iWAawelzeuzzHLD8a4hto4zfKzsvzdfecVZyWRmicCemVonYZx",
     "vault": true 
   };
 
