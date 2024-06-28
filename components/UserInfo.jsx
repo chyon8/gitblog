@@ -22,7 +22,8 @@ const openModal = ()=>{
   const cancelSub = async()=>{
 
 try{
-    const response = await fetch(`${BASE_URL}/api/cancel-sub`, {
+    //const response = await fetch(`${BASE_URL}/api/cancel-sub`, {
+      const response = await fetch(`/api/cancel-subscription`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,6 +31,9 @@ try{
       },
       body: JSON.stringify({
         reason: "Not satisfied with the service",
+        subscriptionId:session.user.subscriptionId,
+        customId:session.user.id
+        
        
       })
     });

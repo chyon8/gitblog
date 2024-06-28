@@ -37,16 +37,6 @@ const userSchema = new Schema(
       type:Number,
       default:10
     },
-    favorites: {
-      type: Map,
-      of: Boolean,
-      default: {},
-    },
-    downloads: {
-      type: Map,
-      of: Boolean,
-      default: {},
-    },
   
   },
   { timestamps: true }

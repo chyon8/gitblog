@@ -7,6 +7,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PayPalButton from "@/components/PayPalButton";
 import { useSession } from 'next-auth/react';
 import AddIcon from '@mui/icons-material/Add';
+import StripeButton from './StripeButton';
 
 function PricingModal({open,setOpen,handleCancel}) 
 {
@@ -19,7 +20,8 @@ function PricingModal({open,setOpen,handleCancel})
     "vault": true 
   };
 
-
+//const priceId="price_1PWbxJHKlhoYzMOlCDqa0UZ8"
+const priceId="price_1PWeRAHKlhoYzMOl3NMfLvYN"
   
   return (
     <Modal open={open} onClose={handleClose}>
@@ -60,7 +62,7 @@ function PricingModal({open,setOpen,handleCancel})
           </Typography>
           <Divider  sx={{background:'#222222',width:'450px', height:'2px', mb:'20px'}}/>
         
-          <Box className="features" sx={{display:'grid',gap:3}}>
+          <Box className="features" sx={{display:'grid',gap:3,justifyContent:'center'}}>
           <Box sx={{display:'flex'}}>
           <AddIcon sx={{color:'#00FF66',mr:'5px'}}/>
             <Typography sx={{color:'#FFFFFF',mt:'3px'}} fontWeight={700} fontSize='16px'>Organization Repo Access</Typography>
@@ -80,11 +82,14 @@ function PricingModal({open,setOpen,handleCancel})
 
         </Box>
         <Box sx={{mt:'34px', pl: '8px', pr: '8px', pb: '16px' }}>
-    
-
+    <StripeButton priceId={priceId} userId={session.user.id}/>
+{/*
           <PayPalScriptProvider options={initialOptions}>
   <PayPalButton userId={session.user.id}/>
 </PayPalScriptProvider>
+
+*/}
+
         </Box>
       </Box>
     </Modal>
