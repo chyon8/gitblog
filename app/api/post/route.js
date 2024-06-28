@@ -1,4 +1,4 @@
-import Product from "@/models/Product";
+
 import { NextResponse } from "next/server";
 import User from "@/models/User";
 
