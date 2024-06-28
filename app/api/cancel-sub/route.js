@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 async function getAccessToken() {
   const clientId = process.env.PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-  const tokenEndpoint = 'https://api-m.sandbox.paypal.com/v1/oauth2/token';
+  const tokenEndpoint = 'https://api-m.paypal.com/v1/oauth2/token';
   try {
 
     const response = await fetch(tokenEndpoint, {
@@ -57,7 +57,7 @@ export async function POST(req) {
     }
 
     // Cancel subscription request to PayPal API
-    const response = await fetch(`https://api-m.sandbox.paypal.com/v1/billing/subscriptions/${subId}/cancel`, {
+    const response = await fetch(`https://api-m.paypal.com/v1/billing/subscriptions/${subId}/cancel`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
