@@ -28,7 +28,6 @@ export default function LandingPage() {
     <Container>
    
         <Box display='grid' sx={{gap:8}} >
-
         <Box  >
           <Typography sx={{mb:'14px'}} textAlign='center' variant="question" fontWeight={700} fontSize={28}>Turn  <span style={{ color: '#00FF66' }}>Code</span> Commits into </Typography>
           <Typography sx={{mb:'14px'}} textAlign='center' variant="question" fontWeight={700} fontSize={28}>Compelling  <span style={{ color: '#00FF66' }}>Blog Posts</span></Typography>
