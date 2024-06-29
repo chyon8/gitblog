@@ -28,7 +28,7 @@ function truncateText(text, maxTokens) {
 
 export async function POST(request) {
   try {
-    const { text, commitMsg, postType, lang, tone } = await request.json();
+    const { text, commitMsg, postType, lang, tone,formality } = await request.json();
     
     // Set a max token limit for the input (adjust as needed)
     const MAX_INPUT_TOKENS = 4000;
@@ -42,6 +42,7 @@ Related Commit Message: ${commitMsg}
 Blog Post Style: ${postType}
 Output Language: ${lang}
 Tone: ${tone}
+Formality:${formality}
 
 Instructions:
 1. Write the entire blog post in ${lang}.
@@ -52,7 +53,9 @@ Instructions:
 6. Ensure adequate spacing between paragraphs for readability.
 7. Create 3 tags that summarize the whole content and put it before the title.
 8. Adjust the tone of the whole content based on ${tone}.
-9. Include some code blocks if necessary for the posts.
+9. Adjust the formality of the entire content based on ${formality}. Especially if the ${lang} is "korean" and informal ,end the sentence using "~했다","~였다","~한다","~않았다","~있다","~된다",~겠다,~할 것이다","~일 것이다" and avoid using "~에요", "~해요", "~요", "~했죠","~거다" things like these.
+10. Include some code blocks if necessary for the posts from the code you are provided, Do Not Change the code you are prodived. You don't need to include everything if not neccessary. 
+
 
 Begin the blog post now.`;
 

@@ -20,8 +20,8 @@ function PricingModal({open,setOpen,handleCancel})
     "vault": true 
   };
 
-//const priceId="price_1PWbxJHKlhoYzMOlCDqa0UZ8"
-const priceId="price_1PWeRAHKlhoYzMOl3NMfLvYN"
+const priceId="price_1PWbxJHKlhoYzMOlCDqa0UZ8"
+//const priceId="price_1PWeRAHKlhoYzMOl3NMfLvYN"  live mode
   
   return (
     <Modal open={open} onClose={handleClose}>

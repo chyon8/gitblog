@@ -2,9 +2,9 @@
 
 import { Box, Button, Typography, Divider } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
-
+import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
+
 
 function PricingLanding() 
 {
@@ -55,10 +55,11 @@ router.push('/login')
             </Box>  
 
         </Box>
-        
+        <Link href="/dashboard">
         <Button onClick={handleTry} sx={{mt:'24px', color:'#0A0A0A', backgroundColor: '#00FF66',}} fullWidth>
            <Typography fontWeight={700} fontSize='16px' >Get Started For Free</Typography>
             </Button>
+            </Link>
           </Box>
       
           

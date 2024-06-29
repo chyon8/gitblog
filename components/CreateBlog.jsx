@@ -20,6 +20,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
   const [response, setResponse] = useState('');
   const [postType,setPostType]= useState("tutorial")
   const [lang,setLang]= useState("english")
+  const [formality,setFormality]= useState("formal")
   const [tone,setTone]= useState("casual")
   const [saved,setSaved]= useState(false)
   const [loading, setLoading] = useState(false); 
@@ -62,7 +63,10 @@ export default function CreateBlog({commitDetails,commitMsg}) {
       setTone(event.target.value)
       }
 
-
+    const handleSelectFormality=(event)=>{
+        setFormality(event.target.value)
+        }
+    
 
   const takeCredits =async () =>{
     try {
@@ -97,7 +101,7 @@ export default function CreateBlog({commitDetails,commitMsg}) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType,tone:tone })
+        body: JSON.stringify({ text: patches,commitMsg:commitMsg,lang:lang, postType:postType,tone:tone,formality:formality })
       });
       const data = await res.json();
       setResponse(data.response);
@@ -187,8 +191,6 @@ const handleCreate = async () => {
 */
 
 
-
-
 /*
 const formatResponse = (text) => {
     return text?.split('\n').map((line, index) => (
@@ -264,7 +266,7 @@ const formatResponse = (text) => {
  <Box>
 
  
-    <Box sx={{ height: '150px' }}>
+    <Box sx={{ height: {xs:'350px',sm:'200px'} }}>
         <Box display='grid' sx={{ gap: 3, mt: '50px', justifyContent: 'center' }}>
           <Typography sx={{ textAlign: 'center', color: '#FFFFFF' }} fontSize="18px">Select files and click continue</Typography>
           <Button onClick={handleCreate} disabled={selectedFiles.length === 0 || loading } sx={{ color: '#0A0A0A', backgroundColor: selectedFiles.length > 0 || loading ? '#00FF66' : "#252525" }}>
@@ -273,7 +275,7 @@ const formatResponse = (text) => {
         </Box>
 
 
-        <Box sx={{mt:'24px',display:'flex',gap:1}}>
+        <Box sx={{mt:'24px',display:{xs:'grid', sm:'flex'},gap:1}}>
           <Box sx={{display:'grid',gap:2}}>
           <Typography variant='answer'>Style</Typography>
         <select onChange={handleSelectType} value={postType} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
@@ -306,11 +308,23 @@ const formatResponse = (text) => {
     <option value="casual">Casual</option>
     <option value="professional">Professional</option>
     <option value="funny">funny</option>
-
     </select>
    </Box>
 
+   <Box sx={{display:'grid',gap:2}}>
+    <Typography variant='answer'>Formality</Typography>
+    <select onChange={handleSelectFormality} value={formality} style={{padding:4 ,background:'#252525',color:'white',borderRadius:'16px', border:'1px solid #252525'}} label="Type">
+    <option value="formal">Formal</option>
+    <option value="informal">Informal</option>
+    </select>
+   </Box>
+
+
+
         </Box>
+
+   
+      
 
       </Box>
       <Box sx={{mt:'50px' ,mb:'24px',bgcolor: response ? '#252525':"",padding:4,borderRadius:'16px',wordWrap: 'break-word', overflow: 'scroll' }}>   

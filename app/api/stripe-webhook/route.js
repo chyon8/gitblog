@@ -24,11 +24,13 @@ export async function POST(req) {
             await handleSubscriptionUpdated(subscription,custom_id);
             break;
 
-      case 'checkout.session.completed':
-       
-        await handlePaid(custom_id,sub_id);
-       
-        break;
+        case 'checkout.session.completed':   
+          await handlePaid(custom_id,sub_id);
+          break;
+
+        case 'customer.subscription.deleted':
+            await handleSubscriptionDeleted(body.data.object, custom_id);
+            break;
 
 
       default:
@@ -82,9 +84,9 @@ async function handleSubscriptionUpdated(subscription,userId) {
             const userObjectId = new mongoose.Types.ObjectId(userId);
             const user = await User.findOne({ _id:userObjectId });
         
-            if (user) {
+            if (user && user.subscribed) {
               user.subscribed = false; 
-              user.credits=100
+              user.credits=50
               await user.save();
               console.log(`subscription cancelled`);
             } else {
@@ -105,12 +107,15 @@ async function handleSubscriptionUpdated(subscription,userId) {
 
 
 
-async function handleCancel(userId) {
+
+/*
+async function handleSubscriptionDeleted(subscription,userId) {
   try {
     const user = await User.findOne({ userId });
 
     if (user) {
       user.subscribed = false; // Assuming 'subscribed' is a boolean field
+      user.subscriptionId = null;
       await user.save();
       console.log(`subscription cancelled`);
     } else {
@@ -121,3 +126,4 @@ async function handleCancel(userId) {
     throw error; // Rethrow the error to be caught in the main error handler
   }
 }
+*/

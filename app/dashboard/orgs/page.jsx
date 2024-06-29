@@ -57,6 +57,7 @@ export default function DashboardOrg() {
   }, [ session]);
 
 
+
   if(!session?.user.subscribed){
     redirect('/profile')
     }
@@ -184,11 +185,11 @@ const handlePageChangeRepo = (newPage) => {
 
 
 
-{orgs ? ( <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName} currentPageOrg={currentPageOrg} setTotalPagesOrgParent={setTotalPagesOrg}/>):
+{orgs.length > 0 ? ( <Organization orgs={orgs} setReposOrgParent={setRepos} setOrgNameParent={setOrgName} currentPageOrg={currentPageOrg} setTotalPagesOrgParent={setTotalPagesOrg}/>):
 (   
   <Box sx={{mt:'30px' ,display:'grid',gap:3}}>
-  <Typography variant="answer">Not seeing your organizations?</Typography>
-  <Typography fontSize='16px' variant="answer"> Visit <a target='_blank' href='https://github.com/settings/installations'>here</a> and go to Authorized Oauth Apps to grant permission to the desired organizations</Typography>
+  <Typography textAlign='center' variant="answer">Not seeing your organizations?</Typography>
+  <Typography fontSize='16px' variant="answer" textAlign='center' > Visit <a target='_blank' href='https://github.com/settings/installations'>here</a> and go to Authorized Oauth Apps to grant permission to the desired organizations</Typography>
     </Box> 
 )}
 

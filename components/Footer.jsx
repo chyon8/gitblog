@@ -26,7 +26,7 @@ boxShadow: '5px 5px 10px 0px #000000',mb:'28px'
 <Box sx={{display:'flex',justifyContent:'center'}}>
 
 <EmailIcon sx={{color:'#FFFFFF', mt:'3px',mr:'5px'}}/>
-  <Link style={{textDecoration:'none'}} href="mailto:sellup.projects@outlook.com">
+  <Link style={{textDecoration:'none'}} href="mailto:sangmin030912@gmail.com">
 <Typography fontSize='15px' sx={{ mb: '14px',color:'#FFFFFF',mt:'7px',color:"#AAAAAA" }}>contact</Typography>
 </Link>
 </Box>

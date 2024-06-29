@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import HowItWorks from '@/components/HowItWorks';
 import screenshot5 from '../public/images/screenshot5.png'
 import screenshot3 from '../public/images/screenshot3.png'
+import Link from 'next/link';
 
 export default function LandingPage() {
   const { data: session,status } = useSession();
@@ -42,10 +43,12 @@ export default function LandingPage() {
               <Typography sx={{ textAlign: 'center', color: '#FFFFFF',lineHeight:'1.8rem' }} fontSize="22px" fontWeight={500}>
                 Share your development journey seamlessly.
               </Typography>
-
-              <Button onClick={handleTry} sx={{mt:'24px', color:'#0A0A0A', backgroundColor: '#00FF66'}} >
+      
+              <Link href='/dashboard'>
+              <Button sx={{mt:'24px', color:'#0A0A0A', backgroundColor: '#00FF66'}} >
            <Typography fontWeight={700} fontSize='16px' >Get Started For Free</Typography>      
             </Button>
+            </Link>
             <Typography variant='answer' sx={{mt:'10px'}} fontWeight={700} fontSize='11px' >No Credit Card Required</Typography> 
         
             </Box>
