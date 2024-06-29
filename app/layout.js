@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
 
         <meta property="og:image" content="https://i.ibb.co/XW9nnjg/gitblog-logo-custom.png" />
       </head>
+    
       <body className={inter.className}>
         <NextAuthProvider>
           <AppRouterCacheProvider>
