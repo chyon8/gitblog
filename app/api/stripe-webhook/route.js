@@ -98,10 +98,7 @@ async function handleSubscriptionUpdated(subscription,userId) {
           }
 
 
-    } else if (subscription.status === 'active') {
-      // Subscription is active (could be a reactivation)
-      await updateDatabase(subscription.customer, subscription.id, 'active');
-    }
+    } 
     // Handle other status changes as needed
   }
 

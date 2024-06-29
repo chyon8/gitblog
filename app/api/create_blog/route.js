@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { Anthropic } from '@anthropic-ai/sdk';
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'edge';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 if (!ANTHROPIC_API_KEY) {

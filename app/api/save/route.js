@@ -39,7 +39,7 @@ export async function POST(req) {
         user: userId
       });
 
-      console.log(blog._id.toString())
+     
 
     }
 
