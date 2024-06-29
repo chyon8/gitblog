@@ -40,7 +40,7 @@ try{
 
 
 
-    window.location.reload();
+    //window.location.reload();
 
     if (!response.ok) {
       throw new Error('Failed to cancel subscription');
