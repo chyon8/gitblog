@@ -17,7 +17,6 @@ boxShadow: '5px 5px 10px 0px #000000',mb:'28px'
     
 
 
-
 <Box sx={{display:'flex',justifyContent:'center'}}>
 <img src="https://i.ibb.co/XW9nnjg/gitblog-logo-custom.png" alt="logo" style={{width:'30px',height:'30px'}} />
 <Typography fontSize='15px' sx={{ml:'5px', mb: '14px',color:'#FFFFFF',mr:"25px",mt:'7px' }}>GitBlog</Typography>
