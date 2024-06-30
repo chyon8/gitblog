@@ -232,7 +232,7 @@ const formatResponse = (text) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({post:markdownValue,blogId:blogId}),
+      body: JSON.stringify({post:markdownValue,blogId:blogId,postType:postType}),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -284,6 +284,7 @@ const formatResponse = (text) => {
     <option value="retrospective">Retrospective</option>
     <option value="problem_solving">Problem solving</option>
     <option value="review_and_critique">Review and critique</option>
+    <option value="Relase Note">Relase Note</option>
     <option value="free_style">Free Style</option>
     </select>
     </Box>

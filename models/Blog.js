@@ -30,6 +30,9 @@ const BlogSchema = new Schema(
       type: [String],
 
     },
+    postType:{
+      type:String
+    }
  
   },
   {

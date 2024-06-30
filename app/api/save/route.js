@@ -36,7 +36,9 @@ export async function POST(req) {
       // If no blogId is provided, create a new blog
       blog = await Blog.create({
         post: body.post,
-        user: userId
+        user: userId,
+        postType:body.postType
+
       });
 
      
