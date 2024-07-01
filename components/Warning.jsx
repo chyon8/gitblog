@@ -43,13 +43,11 @@ function Warning({open,setOpen,handleCancel})
           </Box>
           <Box sx={{pl:1,pr:1}}>
           <Typography fontSize='13px' sx={{ mt: '16px', color:'#FFFFFF' }} textAlign="center">
-          Sure you want to cancel your subscription?
+         You will lose access to organizations <span style={{ color: '#00FF66' }}> immediately</span> 
           </Typography>
-          <Typography fontSize='13px' sx={{ mt: '10px', color:'#FFFFFF' }} textAlign="center">
-          Even though your subscription has been canceled
-          </Typography>
+         
           <Typography fontSize='13px' sx={{ mt: '5px', mb: '14px', color: '#FFFFFF', textAlign: 'center' }}>
-      you still have{' '}
+      But you will still have{' '}
       <span style={{ color: '#00FF66' }}>50 credits</span> available for use!
     </Typography>
           </Box>

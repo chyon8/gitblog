@@ -32,7 +32,7 @@ export async function POST(request) {
     const { text, commitMsg, postType, lang, tone,formality } = await request.json();
     
     // Set a max token limit for the input (adjust as needed)
-    const MAX_INPUT_TOKENS = 4000;
+    const MAX_INPUT_TOKENS = 5000;
     
     // Truncate the input text if it exceeds the token limit
     const truncatedText = truncateText(text, MAX_INPUT_TOKENS);
@@ -52,7 +52,7 @@ Instructions:
 4. Write the main content of the blog post, relating it to the input text and commit message.
 5. Use proper Markdown formatting throughout.
 6. Ensure adequate spacing between paragraphs for readability.
-7. Adjust the formality of the entire content based on ${formality}. Especially if the ${lang} is "korean" and informal ,end the sentences uing something like "~했다","~였다","~한다","~않았다","~있다","~된다",~겠다,~할 것이다","~일 것이다" and avoid using "~에요", "~해요", "~요", "~했죠","~거다",~했습니다,~있었죠,~데요,~습니다,~입니다,~합니다 things like these.
+7. Adjust the formality of the entire content based on ${formality}. Especially if the ${lang} is "korean" and informal ,end the sentences uing something like "~했다","~였다","~한다","~않았다","~있다","~된다",~겠다,~할 것이다","~일 것이다" and avoid using "~에요", "~해요", "~요", "~했죠","~거다",~했습니다,~있었죠,~데요,~습니다,~입니다,~합니다,~이지, things like these.
 8. Create 3 tags that summarize the whole content and put it before the title.
 9. Adjust the tone of the whole content based on ${tone}.
 10. Include some code blocks if necessary for the posts from the code you are provided, Do Not Change the code you are prodived. You don't need to include everything if not neccessary. 
@@ -63,7 +63,7 @@ Begin the blog post now.`;
     const response = await anthropic.messages.create({
       model: "claude-3-sonnet-20240229",
       //model: "claude-3-5-sonnet-20240620",
-      max_tokens: 2000,
+      max_tokens: 3000,
       temperature: 0.1,
       messages: [{ role: "user", content: prompt }]
     });
