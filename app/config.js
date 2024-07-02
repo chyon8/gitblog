@@ -1,4 +1,4 @@
-const BASE_URL="https://gitblog-theta.vercel.app"
+const BASE_URL="https://www.gitblog.app"
 //const BASE_URL="http://localhost:3000"
 
 
