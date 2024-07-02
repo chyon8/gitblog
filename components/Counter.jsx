@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-function App() {
+function Counter() {
   const [count, setCount] = useState(0);
 
   const increment = () => setCount(count + 1);
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default Counter;
