@@ -36,23 +36,29 @@ function HowItWorks()
          How It Works
           </Typography>
 
-
           <Typography fontWeight={700} fontSize='36px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="left">
           Step 1.
           </Typography>
           <Typography fontWeight={500} fontSize='20px' sx={{ mt: '25px', color:'#FFFFFF',mb:'20px' }} textAlign="left">
-          Select your repos and commits you want.
+          Connect your Github Account
           </Typography>
 
           <Typography fontWeight={700} fontSize='36px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="left">
           Step 2.
           </Typography>
           <Typography fontWeight={500} fontSize='20px' sx={{ mt: '25px', color:'#FFFFFF',mb:'20px' }} textAlign="left">
-          Start Creating.
+          Select your repos and commits you want.
           </Typography>
 
           <Typography fontWeight={700} fontSize='36px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="left">
           Step 3.
+          </Typography>
+          <Typography fontWeight={500} fontSize='20px' sx={{ mt: '25px', color:'#FFFFFF',mb:'20px' }} textAlign="left">
+          Start Creating.
+          </Typography>
+
+          <Typography fontWeight={700} fontSize='36px' sx={{ mt: '25px', color:'#00FF66',mb:'20px' }} textAlign="left">
+          Step 4.
           </Typography>
           <Typography fontWeight={500} fontSize='20px' sx={{ mt: '25px', color:'#FFFFFF'}} textAlign="left">
           Customize and publish. It is that easy.
