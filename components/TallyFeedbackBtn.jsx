@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Button, Typography } from '@mui/material';
 
 export default function TallyFeedbackBtn() {
@@ -15,27 +14,24 @@ export default function TallyFeedbackBtn() {
         width: '60px',
         height: '60px',
         zIndex: 1,
-        background:'white',
-        backgroundImage: "url('https://i.ibb.co/7Q13nnh/no-bg-sellup.png')",
-        backgroundSize: 'cover',
+        // background: 'rgb(152, 72, 255)',
+        background: 'white',
         transition: 'all 200ms',
         ':hover': {
-          background:'white',
-          backgroundImage: "url('https://i.ibb.co/7Q13nnh/no-bg-sellup.png')",
-          backgroundSize: 'cover',
-          boxShadow: '0px 0px 20px 0px #00FF66',
+          background: 'white',
+          boxShadow: '0px 0px 20px 0px rgba(152, 72, 255, 0.8)',
           borderRadius: '165px',
-          
-         
+          width: '84px',
         },
       }}
-      data-tally-open="3E18YA"
+      data-tally-open="wdPbWo"
+      data-tally-emoji-text="👋"
       data-tally-emoji-animation="wave"
       data-tally-auto-close="0"
     >
-  
+      <Typography variant="h1" sx={{ color: 'black' }}>
+        👋
+      </Typography>
     </Button>
   );
 }
-
-

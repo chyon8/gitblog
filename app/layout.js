@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="shortcut icon" href="images/favicon.png" />
-
+        <script async src="https://tally.so/widgets/embed.js"></script>
         <meta property="og:image" content="https://i.ibb.co/XW9nnjg/gitblog-logo-custom.png" />
       </head>
     

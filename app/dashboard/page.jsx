@@ -14,6 +14,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { redirect } from 'next/navigation';
+import TallyFeedbackBtn from '@/components/TallyFeedbackBtn';
 
 
 export default function Dashboard() {
@@ -284,6 +285,8 @@ const handlePageChangeRepo = (newPage) => {
       <CreateBlog commitDetails={commitDetails[selectedCommit]} commitMsg={commitDetails[selectedCommit].commit.message}/>
       </Box>
       )}
+
+      <TallyFeedbackBtn/>
     </Container>
   );
 }
