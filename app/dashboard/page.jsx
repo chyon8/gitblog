@@ -84,7 +84,7 @@ export default function Dashboard() {
         headers: {
           Authorization: `token ${session.accessToken}`
         },
-        params: {
+        params:{
           per_page: 10,
           page: currentPage
         }
@@ -285,7 +285,6 @@ const handlePageChangeRepo = (newPage) => {
       <CreateBlog commitDetails={commitDetails[selectedCommit]} commitMsg={commitDetails[selectedCommit].commit.message}/>
       </Box>
       )}
-
       <TallyFeedbackBtn/>
     </Container>
   );

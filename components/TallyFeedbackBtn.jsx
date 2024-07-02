@@ -9,7 +9,7 @@ export default function TallyFeedbackBtn() {
         // right: '10%',
         right: { xs: '3vh', sm: '3vh', md: '15vh', lg: '15vh' },
         bottom: '5vh',
-        // bottom: '1%',
+      
         borderRadius: '100%',
         width: '60px',
         height: '60px',
