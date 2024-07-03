@@ -15,22 +15,22 @@ function TimeSincePost({ createdAt }) {
 
   if (years > 0) {
     // Handles cases more than a year
-    timeSince = `${years}년 전`;
+    timeSince = `${years}years ago`;
   } else if (days > 30) {
     // For dates more than 20 days but less than a year, show month and day
-    timeSince = createdDate.toLocaleDateString('ko-KR', {
+    timeSince = createdDate.toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric',
     });
   } else if (days > 0) {
-    timeSince = `${days}일 전`;
+    timeSince = `${days}days ago`;
   } else if (hours > 0) {
-    timeSince = `${hours}시간 전`;
+    timeSince = `${hours}hours ago`;
   } else if (minutes > 0) {
-    timeSince = `${minutes}분 전`;
+    timeSince = `${minutes}minutes ago`;
   } else {
     // For very recent posts
-    timeSince = `방금 전`;
+    timeSince = `Just now`;
   }
 
   return <div>{timeSince}</div>;
