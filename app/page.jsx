@@ -4,7 +4,7 @@
 import { useSession } from 'next-auth/react';
 import { Typography, Box, Container, Button, Checkbox } from '@mui/material';
 import { redirect } from 'next/navigation';
-import PricingLanding from '@/components/PricingLanding';
+//import PricingLanding from '@/components/PricingLanding';
 import { useRouter } from 'next/navigation';
 import HowItWorks from '@/components/HowItWorks';
 import screenshot5 from '../public/images/screenshot5.png'
