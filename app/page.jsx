@@ -10,7 +10,7 @@ import HowItWorks from '@/components/HowItWorks';
 import screenshot5 from '../public/images/screenshot5.png'
 import screenshot3 from '../public/images/screenshot3.png'
 import Link from 'next/link';
-
+import VideoDemo from '@/components/videoDemo';
 export default function LandingPage() {
   const { data: session,status } = useSession();
   const router = useRouter()
@@ -55,7 +55,14 @@ export default function LandingPage() {
 
           </Box>
 
-          <Box>
+       
+
+          <VideoDemo/>
+
+          <HowItWorks/>
+
+
+            <Box>
             <Typography sx={{mb:'14px'}} textAlign='center' fontWeight={700} fontSize='16px' variant='question'>Turn this into</Typography>
           <Box>
             <img style={{borderRadius:'16px' ,width:'100%', height:'100%'}} src={screenshot5.src} alt="screenshot" />
@@ -65,15 +72,21 @@ export default function LandingPage() {
           <Typography sx={{mb:'14px'}} textAlign='center' fontWeight={700} fontSize='16px' variant='question'>This:</Typography>
             <img style={{borderRadius:'16px' ,width:'100%', height:'100%'}} src={screenshot3.src} alt="screenshot" />
 
-
             </Box>
+            </Box> 
+          
+   {/* <PricingLanding/> */}
+
+
+   <Box sx={{display:'flex',justifyContent:'center',mb:'24px'}}>
+          <Link href='/login'>
+              <Button sx={{ color:'#0A0A0A', backgroundColor: '#00FF66'}} >
+           <Typography fontWeight={700} fontSize='16px' >Get Started For Free</Typography>      
+            </Button>
+            </Link>
             </Box>
-          <HowItWorks/>
-
-  
 
 
-    <PricingLanding/>
 
         </Box>
    

@@ -20,8 +20,7 @@ function HowItWorks()
           display: 'grid',
           boxSizing: 'border-box',
           borderRadius: '16px',
-         
-            mb:'20px',
+
           outline: 'none',
         }}
       >
@@ -71,9 +70,7 @@ function HowItWorks()
           
 
         </Box>
-        <Box sx={{ pl: '8px', pr: '8px', pb: '16px' }}>
-
-        </Box>
+      
       </Box>
       </Box>
 
