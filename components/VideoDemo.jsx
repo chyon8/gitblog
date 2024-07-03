@@ -3,7 +3,7 @@
 import { Box} from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useState,useEffect } from 'react';
-
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 
 function VideoDemo() 
@@ -11,6 +11,7 @@ function VideoDemo()
     const router = useRouter()
 
     const [isClient, setIsClient] = useState(false);
+
 
     useEffect(() => {
       setIsClient(true);
@@ -22,10 +23,7 @@ function VideoDemo()
 
     <Box>
 
-      <Box
-     
-      >
-    
+
         <Box sx={{ alignContent: 'center', justifyContent: 'center', display: 'grid' }}>
         
           <Box>
@@ -40,8 +38,8 @@ function VideoDemo()
     
 
         </Box>
-       
-      </Box>
+  
+
       </Box>
 
   );

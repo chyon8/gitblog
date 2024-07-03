@@ -11,18 +11,26 @@ import screenshot5 from '../public/images/screenshot5.png'
 import screenshot3 from '../public/images/screenshot3.png'
 import Link from 'next/link';
 import VideoDemo from '@/components/VideoDemo';
+import { useState } from 'react';
+import BeforeVideo from '@/components/BeforeVideo';
 export default function LandingPage() {
   const { data: session,status } = useSession();
   const router = useRouter()
+
+  const [isClicked,setIsClicked]=useState(false)
 
   if(status === "authenticated"){
     redirect('/dashboard')
   }
   
+  const handleClickedVideo = (clicked) => {
+    setIsClicked(clicked); 
+  };
 
   const handleTry = ()=>{
     router.push('/login')
     }
+
 
     
   return (
@@ -56,8 +64,12 @@ export default function LandingPage() {
           </Box>
 
        
+       {isClicked ?  <VideoDemo/>:(
+      <BeforeVideo onClickedVideo={handleClickedVideo}/>
 
-          <VideoDemo/>
+       ) }
+
+
 
           <HowItWorks/>
 
