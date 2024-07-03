@@ -10,7 +10,7 @@ import HowItWorks from '@/components/HowItWorks';
 import screenshot5 from '../public/images/screenshot5.png'
 import screenshot3 from '../public/images/screenshot3.png'
 import Link from 'next/link';
-import VideoDemo from '@/components/videoDemo';
+import VideoDemo from '@/components/VideoDemo';
 export default function LandingPage() {
   const { data: session,status } = useSession();
   const router = useRouter()
