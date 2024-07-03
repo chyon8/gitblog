@@ -44,7 +44,7 @@ export default function LandingPage() {
                 Share your development journey seamlessly.
               </Typography>
       
-              <Link href='/dashboard'>
+              <Link href='/dashboard' style={{textDecoration:'none'}}>
               <Button sx={{mt:'24px', color:'#0A0A0A', backgroundColor: '#00FF66'}} >
            <Typography fontWeight={700} fontSize='16px' >Get Started For Free</Typography>      
             </Button>
@@ -79,7 +79,7 @@ export default function LandingPage() {
 
 
    <Box sx={{display:'flex',justifyContent:'center',mb:'24px'}}>
-          <Link href='/login'>
+          <Link href='/login' style={{textDecoration:'none'}} >
               <Button sx={{ color:'#0A0A0A', backgroundColor: '#00FF66'}} >
            <Typography fontWeight={700} fontSize='16px' >Get Started For Free</Typography>      
             </Button>
